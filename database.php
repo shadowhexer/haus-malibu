@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "root"; // default is root; change based on your config
+$password = ""; // default is none; change based on your config
 $db_name = "test";
 
 try {
@@ -12,21 +12,32 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-$table_exists = $conn->query("SHOW TABLES LIKE 'credentials'")->rowCount();
-if ($table_exists == 0) {
+$room_exists = $conn->query("SHOW TABLES LIKE 'rooms'")->rowCount();
+$booking_exists = $conn->query("SHOW TABLES LIKE 'bookings'")->rowCount();
+
+if ($booking_exists == 0 || $room_exists == 0) {
     try {
-        $create_table = "CREATE TABLE credentials (
+        $bookings_table = "CREATE TABLE bookings (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            fullname VARCHAR(255) NOT NULL,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
             email VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            gender VARCHAR(10),
-            birthday DATE,
-            address TEXT,
             contact BIGINT,
-            attachment_path TEXT
+            address TEXT,
+            city VARCHAR(255) NOT NULL,
+            country VARCHAR(255) NOT NULL,
+            special_requests TEXT
         )";
-        $conn->exec($create_table);
+
+        $rooms_table = "CREATE TABLE rooms (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            bed_capacity INT NOT NULL,
+            size DECIMAL(10, 2) NOT NULL,
+            price DECIMAL(10, 2) NOT NULL,
+            status INT NOT NULL,
+        )";
+        $conn->exec($bookings_table);
+        $conn->exec($rooms_table);
         echo "Table 'credentials' created successfully.";
     } catch(PDOException $e) {
         echo "Error creating table: " . $e->getMessage();
