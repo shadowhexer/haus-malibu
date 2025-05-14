@@ -12,35 +12,67 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-$room_exists = $conn->query("SHOW TABLES LIKE 'rooms'")->rowCount();
-$booking_exists = $conn->query("SHOW TABLES LIKE 'bookings'")->rowCount();
+try {
+    $bookings_table = "CREATE TABLE IF NOT EXISTS bookings (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        book_id TEXT NOT NULL,
+        first_name VARCHAR(255) NOT NULL,
+        last_name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        contact BIGINT,
+        address TEXT,
+        city VARCHAR(255) NOT NULL,
+        country VARCHAR(255) NOT NULL,
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        special_requests TEXT
+    )";
 
-if ($booking_exists == 0 || $room_exists == 0) {
-    try {
-        $bookings_table = "CREATE TABLE bookings (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            first_name VARCHAR(255) NOT NULL,
-            last_name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            contact BIGINT,
-            address TEXT,
-            city VARCHAR(255) NOT NULL,
-            country VARCHAR(255) NOT NULL,
-            special_requests TEXT
-        )";
-
-        $rooms_table = "CREATE TABLE rooms (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            bed_capacity INT NOT NULL,
-            size DECIMAL(10, 2) NOT NULL,
-            price DECIMAL(10, 2) NOT NULL,
-            status INT NOT NULL,
-        )";
-        $conn->exec($bookings_table);
-        $conn->exec($rooms_table);
-        echo "Table 'credentials' created successfully.";
-    } catch(PDOException $e) {
-        echo "Error creating table: " . $e->getMessage();
-    }
+    $conn->exec($bookings_table);
+    echo "Table 'bookings' created or already exists.<br>";
+} catch(PDOException $e) {
+    echo "Error creating 'bookings': " . $e->getMessage() . "<br>";
 }
+
+try {
+    $rooms_table = "CREATE TABLE IF NOT EXISTS rooms (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        bed_capacity INT NOT NULL,
+        size DECIMAL(10, 2) NOT NULL,
+        price DECIMAL(10, 2) NOT NULL,
+        status INT NOT NULL
+    )";
+
+    $conn->exec($rooms_table);
+    echo "Table 'rooms' created or already exists.<br>";
+} catch(PDOException $e) {
+    echo "Error creating 'rooms': " . $e->getMessage() . "<br>";
+}
+
+
+// try {
+//     $bookings_table = "CREATE TABLE IF NOT EXISTS bookings (
+//         id INT AUTO_INCREMENT PRIMARY KEY,
+//         first_name VARCHAR(255) NOT NULL,
+//         last_name VARCHAR(255) NOT NULL,
+//         email VARCHAR(255) NOT NULL,
+//         contact BIGINT,
+//         address TEXT,
+//         city VARCHAR(255) NOT NULL,
+//         country VARCHAR(255) NOT NULL,
+//         special_requests TEXT
+//     )";
+//     $rooms_table = "CREATE TABLE IF NOT EXISTS rooms (
+//         id INT AUTO_INCREMENT PRIMARY KEY,
+//         bed_capacity INT NOT NULL,
+//         size DECIMAL(10, 2) NOT NULL,
+//         price DECIMAL(10, 2) NOT NULL,
+//         status INT NOT NULL
+//     )";
+//     $conn->exec($rooms_table);
+//     $conn->exec($bookings_table);
+//     echo "Table created successfully.<br>";
+// } catch(PDOException $e) {
+//     echo "Error creating table: " . $e->getMessage();
+// }
+
 ?>

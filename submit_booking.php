@@ -19,9 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $country = $_POST["country"];
     $special_requests = $_POST["special_requests"];
 
-    $stmt = $conn->prepare("INSERT INTO `bookings` (`first_name`, ,`last_name`, `email`, `contact`, `address`, `city`, `country`, `special_requests`) 
-                            VALUES (:firstname, :lastname, :email, :contact, :address, :city, :country, :special_requests)");
+    $id = bin2hex(random_bytes(10 / 2));
 
+    $stmt = $conn->prepare("INSERT INTO `bookings` (`book_id`, `first_name`, `last_name`, `email`, `contact`, `address`, `city`, `country`, `special_requests`) 
+                            VALUES (:id, :firstname, :lastname, :email, :contact, :address, :city, :country, :special_requests)");
+
+    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
     $stmt->bindParam(':firstname', $firstname);
     $stmt->bindParam(':lastname', $lastname);
     $stmt->bindParam(':email', $email);
@@ -39,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>alert('Error submiting booking.');</script>";
         }
     } catch (PDOException $e) {
-        echo "<script>alert('Database error.'); window.location.href='rooms.html';</script>";
+        echo "<script>alert('Database error: $e'); window.location.href='rooms.html';</script>";
     }
 }
 
