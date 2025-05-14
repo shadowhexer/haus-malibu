@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        /* --- Existing CSS (No Changes Here) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 4px solid #ccc;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 10px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/home.jpg') center top/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .hero-content {
+            padding: 2rem;
+            border-radius: 10px;
+            background-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 4rem;
+            color: #a1db5f;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .booking-form {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 1200px;
+            display: flex; /* Use flexbox for card layout */
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            max-width: 900px; /* Increased the maximum width of the card */
+            margin-bottom: 20px; /* Add some margin between cards */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Push text to top, button to bottom */
+            height: 100%; /* Make body take full height */
+        }
+
+        .row.g-0 {
+            display: flex; /* Ensure row behaves as flex container */
+            flex-direction: row;
+            align-items: stretch; /* Make columns the same height */
+            height: auto; /* Adjusted to auto to fit content */
+        }
+
+        .col-md-4 {
+            max-width: 350px; /* Increased the maximum width of the image container */
+            overflow: hidden; /* Clip any rounding from the image */
+            height: 100%; /* Make the image container take the full row height */
+        }
+
+        .col-md-8 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Position content within the text area */
+            padding-left: 30px; /* Increased spacing from the image */
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%; /* Make the image fill the height of the column */
+            display: block;
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+        }
+
+        .booking-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            width: 120px; /* Slightly wider button */
+            height: 40px; /* Slightly taller button */
+            font-size: small;
+            border-radius: 5px;
+        }
+
+        .booking-form button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #006118;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-logo {
+            border-radius: 8px;
+            margin-bottom: 10px;
+            margin-top: 10;
+            width: 150px;
+            height: auto;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .social-links a {
+            color: rgb(128, 245, 92);
+            font-size: 1.5rem;
+            text-decoration: none;
+            margin: 10px;
+            margin-top: -5px;
+            margin-bottom: -5px;
+        }
+
+        .social-links a:hover {
+            color: #eead4a;
+        }
+        .social-links i{
+            color: #d36c0b;;
+        }
+        .social-links i:hover {
+            color: rgb(128, 245, 92);
+        }
+
+        /* --- New CSS for Amenities Icons --- */
+        .amenities {
+            display: flex;
+            gap: 20px; /* Adjust spacing between icons */
+            font-size: 1.2rem; /* Adjust icon size */
+            color: #555; /* Adjust icon color */
+            align-items: center; /* Vertically align icons */
+            margin-top: 15px; /* Add more space above the icons */
+            justify-content: flex-start; /* Align icons to the left */
+        }
+
+        .amenities i {
+            /* You can add specific styling for the icons if needed */
+        }
+
+        /* --- Responsive CSS (Changes Made Here) --- */
+        @media (max-width: 992px) { /* Adjust breakpoint for medium screens */
+            .card {
+                max-width: 768px; /* Slightly reduce card width on medium screens */
+            }
+            .col-md-4 {
+                max-width: 300px;
+            }
+            .col-md-8 {
+                padding-left: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            nav a {
+                width: 100%;
+                padding: 0.5rem 0;
+                border-top: 1px solid #ddd;
+            }
+
+            .booking-form {
+                display: block; /* Stack the cards on small screens */
+            }
+
+            .card {
+                width: 100%; /* Make the cards take up the full width */
+                max-width: none; /* Remove the maximum width constraint */
+                margin-bottom: 20px; /* Add some spacing between stacked cards */
+            }
+
+            .row.g-0 {
+                flex-direction: column; /* Stack image and text vertically */
+                height: auto; /* Let the height adjust */
+            }
+
+            .col-md-4 {
+                max-width: 100%; /* Image takes full width */
+                height: auto; /* Adjust image height */
+            }
+
+            .col-md-8 {
+                padding-left: 0; /* Remove left padding */
+            }
+
+            .card img {
+                width: 100%;
+                height: auto; /* Adjust height to maintain aspect ratio */
+                object-fit: cover;
+            }
+
+            .card-body {
+                padding: 1rem; /* Add padding to the text area */
+            }
+
+            .booking-form button {
+                width: 100%; /* Full width button */
+                height: auto;
+                font-size: 10px;
+                padding: 5px;
+            }
+
+            .amenities {
+                margin-top: 10px;
+                gap: 10px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Haus Malibu Logo">
+            <span style="font-family: impact; color: #45a049; font-size: 35px; margin-top:-5px; margin-bottom: -10px;">HAUS MALIBU<br><p style="font-size: 10px; margin-top:-8px; margin-bottom: 9px; color: #000; font-style: italic; font-family: 'Courier New', Courier, monospace; font">Your Comfort is our Main Concern</p> </span>
+        </div>
+        <nav>
+            <a href="#" style="color: #4CAF50;">Home</a>
+            <a href="#" style="color: #4CAF50;">Rooms</a>
+            <a href="#" style="color: #4CAF50;">About Us</a>
+            <a href="#" style="color: #4CAF50;">News & Updates</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Rooms & Suites</h1>
+        </div>
+    </section>
+
+    <p style="font-family: 'Times New Roman', Times, serif; font-size: 1rem; color: #4e4e4e;text-align: center; margin-bottom: -10px; margin-top: 10px;">Stay with us</p>
+    <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 2rem; color: #000000;text-align: center;">Rooms & Suites</h1>
+
+    <section class="booking-form">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="images/bedroom.jpeg" class="img-fluid" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <section class="description" style="display: flex; align-items: flex-start; justify-content: space-between; margin-left: 10px;">
+                            <div style="flex-grow: 1; margin-right: 20px;">
+                                <div>
+                                    <p class="room-title" style="font-size: 20px; font-weight: bolder; color: #4CAF50;">Single Room</p>
+                                    <hr>
+                                </div>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray;">
+                                    Bed: 1 Single Bed <br>
+                                    Occupancy: 1 Person <br>
+                                    Size: 36 sqm<br>
+                                </p>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <p class="card-text" style="font-size: 15px; font-weight: bold; color: gray; margin-left: 10px;">Room Amenities</p>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray; columns: 2; -webkit-columns: 2; -moz-columns: 2; margin-left: 10px;">
+                                    Bath <br>
+                                    Free toiletries <br>
+                                    Toilet <br>
+                                    Slippers <br>
+                                    Towels <br>
+                                    Safety Deposit Box <br>
+                                    Telephone <br>
+                                    Air conditioning <br>
+                                    Refrigerator <br>
+                                    Cable Channels <br>
+                                    Flat-screen TV <br>
+                                    Linen <br>
+                                    Free Wi-Fi <br>
+                                    Bathtub <br>
+                                </p>
+                            </div>
+                        </section>
+                        <hr style="margin-left: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-left: 10px;">
+                            <div style="text-align: left;">
+                                <strong style="font-size: 1.5rem; margin-bottom: -10px;">₱ 1,500 <span style="font-size: 12px; font-weight: lighter; color: gray">/ night</span></strong>
+                            </div>
+                            <p style="color: red; text-decoration: line-through;">Not Available</p>
+                            <a href="guestinfo.html" style="margin-top: 0;"><button>BOOK NOW</button></a>
+                        </div>
+                        <div class="amenities" style="justify-content: flex-start; margin-left: 10px;">
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-coffee"></i>
+                            <i class="fas fa-car"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-form">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="images/bedroom.jpeg" class="img-fluid" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <section class="description" style="display: flex; align-items: flex-start; justify-content: space-between; margin-left: 10px;">
+                            <div style="flex-grow: 1; margin-right: 20px;">
+                                <div>
+                                    <p class="room-title" style="font-size: 20px; font-weight: bolder; color: #4CAF50;">Single Room</p>
+                                    <hr>
+                                </div>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray;">
+                                    Bed: 1 Single Bed <br>
+                                    Occupancy: 1 Person <br>
+                                    Size: 36 sqm<br>
+                                </p>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <p class="card-text" style="font-size: 15px; font-weight: bold; color: gray; margin-left: 10px;">Room Amenities</p>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray; columns: 2; -webkit-columns: 2; -moz-columns: 2; margin-left: 10px;">
+                                    Bath <br>
+                                    Free toiletries <br>
+                                    Toilet <br>
+                                    Slippers <br>
+                                    Towels <br>
+                                    Safety Deposit Box <br>
+                                    Telephone <br>
+                                    Air conditioning <br>
+                                    Refrigerator <br>
+                                    Cable Channels <br>
+                                    Flat-screen TV <br>
+                                    Linen <br>
+                                    Free Wi-Fi <br>
+                                    Bathtub <br>
+                                </p>
+                            </div>
+                        </section>
+                        <hr style="margin-left: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-left: 10px;">
+                            <div style="text-align: left;">
+                                <strong style="font-size: 1.5rem; margin-bottom: -10px;">₱ 1,500 <span style="font-size: 12px; font-weight: lighter; color: gray">/ night</span></strong>
+                            </div>
+                            <p style="color: #45a049;">Available</p>
+                            <a href="guestinfo.html" style="margin-top: 0;"><button>BOOK NOW</button></a>
+                        </div>
+                        <div class="amenities" style="justify-content: flex-start; margin-left: 10px;">
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-coffee"></i>
+                            <i class="fas fa-car"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-form">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="images/bedroom.jpeg" class="img-fluid" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <section class="description" style="display: flex; align-items: flex-start; justify-content: space-between; margin-left: 10px;">
+                            <div style="flex-grow: 1; margin-right: 20px;">
+                                <div>
+                                    <p class="room-title" style="font-size: 20px; font-weight: bolder; color: #4CAF50;">Single Room</p>
+                                    <hr>
+                                </div>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray;">
+                                    Bed: 1 Single Bed <br>
+                                    Occupancy: 1 Person <br>
+                                    Size: 36 sqm<br>
+                                </p>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <p class="card-text" style="font-size: 15px; font-weight: bold; color: gray; margin-left: 10px;">Room Amenities</p>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray; columns: 2; -webkit-columns: 2; -moz-columns: 2; margin-left: 10px;">
+                                    Bath <br>
+                                    Free toiletries <br>
+                                    Toilet <br>
+                                    Slippers <br>
+                                    Towels <br>
+                                    Safety Deposit Box <br>
+                                    Telephone <br>
+                                    Air conditioning <br>
+                                    Refrigerator <br>
+                                    Cable Channels <br>
+                                    Flat-screen TV <br>
+                                    Linen <br>
+                                    Free Wi-Fi <br>
+                                    Bathtub <br>
+                                </p>
+                            </div>
+                        </section>
+                        <hr style="margin-left: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-left: 10px;">
+                            <div style="text-align: left;">
+                                <strong style="font-size: 1.5rem; margin-bottom: -10px;">₱ 1,500 <span style="font-size: 12px; font-weight: lighter; color: gray">/ night</span></strong>
+                            </div>
+                            <p style="color: red; text-decoration: line-through;">Not Available</p>
+                            <a href="guestinfo.html" style="margin-top: 0;"><button>BOOK NOW</button></a>
+                        </div>
+                        <div class="amenities" style="justify-content: flex-start; margin-left: 10px;">
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-coffee"></i>
+                            <i class="fas fa-car"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-form">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="images/bedroom.jpeg" class="img-fluid" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <section class="description" style="display: flex; align-items: flex-start; justify-content: space-between; margin-left: 10px;">
+                            <div style="flex-grow: 1; margin-right: 20px;">
+                                <div>
+                                    <p class="room-title" style="font-size: 20px; font-weight: bolder; color: #4CAF50;">Single Room</p>
+                                    <hr>
+                                </div>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray;">
+                                    Bed: 1 Single Bed <br>
+                                    Occupancy: 1 Person <br>
+                                    Size: 36 sqm<br>
+                                </p>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <p class="card-text" style="font-size: 15px; font-weight: bold; color: gray; margin-left: 10px;">Room Amenities</p>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray; columns: 2; -webkit-columns: 2; -moz-columns: 2; margin-left: 10px;">
+                                    Bath <br>
+                                    Free toiletries <br>
+                                    Toilet <br>
+                                    Slippers <br>
+                                    Towels <br>
+                                    Safety Deposit Box <br>
+                                    Telephone <br>
+                                    Air conditioning <br>
+                                    Refrigerator <br>
+                                    Cable Channels <br>
+                                    Flat-screen TV <br>
+                                    Linen <br>
+                                    Free Wi-Fi <br>
+                                    Bathtub <br>
+                                </p>
+                            </div>
+                        </section>
+                        <hr style="margin-left: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-left: 10px;">
+                            <div style="text-align: left;">
+                                <strong style="font-size: 1.5rem; margin-bottom: -10px;">₱ 1,500 <span style="font-size: 12px; font-weight: lighter; color: gray">/ night</span></strong>
+                            </div>
+                            <p style="color: red; text-decoration: line-through;">Not Available</p>
+                            <a href="guestinfo.html" style="margin-top: 0;"><button>BOOK NOW</button></a>
+                        </div>
+                        <div class="amenities" style="justify-content: flex-start; margin-left: 10px;">
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-coffee"></i>
+                            <i class="fas fa-car"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-form">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="images/bedroom.jpeg" class="img-fluid" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <section class="description" style="display: flex; align-items: flex-start; justify-content: space-between; margin-left: 10px;">
+                            <div style="flex-grow: 1; margin-right: 20px;">
+                                <div>
+                                    <p class="room-title" style="font-size: 20px; font-weight: bolder; color: #4CAF50;">Single Room</p>
+                                    <hr>
+                                </div>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray;">
+                                    Bed: 1 Single Bed <br>
+                                    Occupancy: 1 Person <br>
+                                    Size: 36 sqm<br>
+                                </p>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <p class="card-text" style="font-size: 15px; font-weight: bold; color: gray; margin-left: 10px;">Room Amenities</p>
+                                <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray; columns: 2; -webkit-columns: 2; -moz-columns: 2; margin-left: 10px;">
+                                    Bath <br>
+                                    Free toiletries <br>
+                                    Toilet <br>
+                                    Slippers <br>
+                                    Towels <br>
+                                    Safety Deposit Box <br>
+                                    Telephone <br>
+                                    Air conditioning <br>
+                                    Refrigerator <br>
+                                    Cable Channels <br>
+                                    Flat-screen TV <br>
+                                    Linen <br>
+                                    Free Wi-Fi <br>
+                                    Bathtub <br>
+                                </p>
+                            </div>
+                        </section>
+                        <hr style="margin-left: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-left: 10px;">
+                            <div style="text-align: left;">
+                                <strong style="font-size: 1.5rem; margin-bottom: -10px;">₱ 1,500 <span style="font-size: 12px; font-weight: lighter; color: gray">/ night</span></strong>
+                            </div>
+                            <p style="color: #45a049;">Available</p>
+                            <a href="guestinfo.html" style="margin-top: 0;"><button>BOOK NOW</button></a>
+                        </div>
+                        <div class="amenities" style="justify-content: flex-start; margin-left: 10px;">
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-coffee"></i>
+                            <i class="fas fa-car"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <img class="footer-logo"  src="images/logo.png" alt="Haus Malibu Logo">
+        <div class="social-links">
+            <a href="https://www.facebook.com" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2025 Haus Malibu. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnFfIBvB65nVHfhjvgpW1z" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tCwlwpjSdlwr5eK0WykfhaGuVgUcdj7jMhLnJgoHVuhFwbKwlhpkggno8" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

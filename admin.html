@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <link rel="stylesheet" href="css/admin-css.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Haus Malibu Logo">
+            <span style="font-family: impact; color: #45a049; font-size: 35px;">HAUS MALIBU<br><p style="font-size: 10px; color: #000; font-style: italic; font-family: 'Courier New', Courier, monospace; font">Your Comfort is our Main Concern</p> </span>
+        </div>
+        <nav>
+            <a href="#" style="color: #4CAF50;">Home</a>
+            <a href="#" style="color: #4CAF50;">Rooms</a>
+            <a href="#" style="color: #4CAF50;">About Us</a>
+            <a href="#" style="color: #4CAF50;">News & Updates</a>
+        </nav>
+    </header>
+
+<div class="admin-container">
+  <!-- Manage Bookings -->
+  <div class="admin-card">
+    <h2>BOOKINGS</h2>
+    <ul id="bookingList" class="booking-list"></ul>
+    <h3>Add Booking</h3>
+    <input type="text" id="guest-name" placeholder="Guest Name">
+    <input type="date" id="check-in">
+    <input type="date" id="check-out">
+    <button class="add-btn" onclick="addBooking()">Add Booking</button>
+    <button class="generate-btn" onclick="generatePDF()">Download Report</button>
+  </div>
+
+  <!-- Manage Rooms -->
+  <div class="admin-card">
+    <h2>ROOMS</h2>
+    <ul id="roomList" class="room-list"></ul>
+    <h3>Add Room</h3>
+    <input type="text" id="room-name" placeholder="Room Name">
+    <textarea id="room-desc" placeholder="Room Description"></textarea>
+    <input type="file" id="room-image">
+    <button class="add-btn" onclick="addRoom()">Add Room</button>
+  </div>
+
+  <!-- Manage News and Updates -->
+  <div class="admin-card">
+    <h2>NEWS AND UPDATES</h2>
+    <ul id="newsList" class="news-list"></ul>
+    <h3>Add News</h3>
+    <input type="text" id="news-title" placeholder="News Title">
+    <textarea id="news-content" placeholder="News Content"></textarea>
+    <input type="file" id="news-image">
+    <button class="add-btn" onclick="addNews()">Add News</button>
+  </div>
+</div>
+
+<footer>
+    <img class="footer-logo"  src="images/logo.png" alt="Haus Malibu Logo">
+    <div class="social-links">
+        <a href="https://www.facebook.com" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p>&copy; 2025 Haus Malibu. All rights reserved.</p>
+</footer>
+
+<script>
+  let bookings = [], rooms = [], news = [];
+
+  function addBooking() {
+    const name = document.getElementById("guest-name").value;
+    const checkIn = document.getElementById("check-in").value;
+    const checkOut = document.getElementById("check-out").value;
+    const bookingTime = new Date().toLocaleString();
+
+    if (name && checkIn && checkOut) {
+      const booking = {
+        id: Date.now(),
+        name, checkIn, checkOut,
+        time: bookingTime,
+        status: "Pending"
+      };
+      bookings.push(booking);
+      displayBookings();
+      document.getElementById("guest-name").value = '';
+      document.getElementById("check-in").value = '';
+      document.getElementById("check-out").value = '';
+    }
+  }
+
+  function displayBookings() {
+    const list = document.getElementById("bookingList");
+    list.innerHTML = '';
+    bookings.forEach(b => {
+      let color = b.status === "Accepted" ? "green" :
+                  b.status === "Declined" ? "red" : "orange";
+      list.innerHTML += `
+        <li class="booking-item" data-id="${b.id}">
+          <div>
+            <strong>Name:</strong> ${b.name}<br>
+            <strong>Check-in:</strong> ${b.checkIn}<br>
+            <strong>Check-out:</strong> ${b.checkOut}<br>
+            <strong>Booking Time:</strong> ${b.time}<br>
+            <strong>Status:</strong> <span id="status-${b.id}" style="color: ${color}; font-weight: bold;">${b.status}</span>
+          </div>
+          <div class="booking-actions">
+            <button class="accept-btn" onclick="acceptBooking(${b.id})">Accept</button>
+            <button class="decline-btn" onclick="declineBooking(${b.id})">Decline</button>
+          </div>
+        </li>`;
+    });
+  }
+
+  function acceptBooking(id) {
+    const booking = bookings.find(b => b.id === id);
+    if (booking) {
+      booking.status = "Accepted";
+      displayBookings();
+    }
+  }
+
+  function declineBooking(id) {
+    const booking = bookings.find(b => b.id === id);
+    if (booking) {
+      booking.status = "Declined";
+      displayBookings();
+    }
+  }
+
+  function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const rows = bookings.map(b => [
+      b.name, b.checkIn, b.checkOut, b.time,
+      { content: 'Status:', styles: { fontStyle: 'bold', textColor: [0, 0, 0] } },
+      {
+        content: b.status,
+        styles: {
+          fontStyle: 'bold',
+          textColor: b.status === "Accepted" ? [40, 167, 69] :
+                     b.status === "Declined" ? [220, 53, 69] : [255, 193, 7]
+        }
+      }
+    ]);
+
+    doc.text("Haus Malibu Booking Report", 14, 15);
+    doc.autoTable({
+      startY: 20,
+      head: [["Name", "Check-in", "Check-out", "Time", "", ""]],
+      body: rows,
+      styles: { cellPadding: 3 },
+      theme: "grid"
+    });
+
+    doc.save("Haus Malibu Bookings.pdf");
+  }
+
+  function addRoom() {
+    const name = document.getElementById("room-name").value;
+    const desc = document.getElementById("room-desc").value;
+    const image = document.getElementById("room-image").files[0];
+
+    if (name && desc && image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        rooms.push({ id: Date.now(), name, desc, image: reader.result });
+        displayRooms();
+      };
+      reader.readAsDataURL(image);
+    }
+  }
+
+  function displayRooms() {
+    const list = document.getElementById("roomList");
+    list.innerHTML = '';
+    rooms.forEach(r => {
+      list.innerHTML += `
+        <li class="room-item">
+          <div>
+            <strong>${r.name}</strong><br>
+            ${r.desc}<br>
+            <img src="${r.image}" alt="Room image">
+          </div>
+          <div class="room-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </li>`;
+    });
+  }
+
+  function addNews() {
+    const title = document.getElementById("news-title").value;
+    const content = document.getElementById("news-content").value;
+    const image = document.getElementById("news-image").files[0];
+
+    if (title && content && image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        news.push({ id: Date.now(), title, content, image: reader.result });
+        displayNews();
+      };
+      reader.readAsDataURL(image);
+    }
+  }
+
+  function displayNews() {
+    const list = document.getElementById("newsList");
+    list.innerHTML = '';
+    news.forEach(n => {
+      list.innerHTML += `
+        <li class="news-item">
+          <div>
+            <strong>${n.title}</strong><br>
+            ${n.content}<br>
+            <img src="${n.image}" alt="News image">
+          </div>
+          <div class="news-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
+        </li>`;
+    });
+  }
+</script>
+</body>
+</html>
