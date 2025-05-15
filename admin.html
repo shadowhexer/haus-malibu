@@ -134,28 +134,27 @@
 
 
     function modifyBooking(id, bookStatus) {
-      
-        fetch(window.location.origin + '/haus-malibu/modify_booking.php', {
-          method: 'POST',
-          body: JSON.stringify({ book_id: id, status: bookStatus }),
-          headers: { 'Content-Type': 'application/json' }
+
+      fetch(window.location.origin + '/haus-malibu/modify_booking.php', {
+        method: 'POST',
+        body: JSON.stringify({ book_id: id, status: bookStatus }),
+        headers: { 'Content-Type': 'application/json' }
+      })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message);
+          window.location.href = 'admin.html'
         })
-          .then(response => response.json())
-          .then(data => {
-            alert(data.message); 
-            window.location.href='admin.html'
-          })
-          .catch(err => {
-            console.log('Error: ' + err.message);
-          })
-      }
+        .catch(err => {
+          console.log('Error: ' + err.message);
+        })
+    }
 
     function generatePDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      const rows = bookings.map(b => [
-        b.name, b.checkIn, b.checkOut, b.time,
-        { content: 'Status:', styles: { fontStyle: 'bold', textColor: [0, 0, 0] } },
+      const rows = [booking].map(b => [
+        b.book_id, b.first_name, b.last_name, b.checkIn, b.checkOut, b.date,
         {
           content: b.status,
           styles: {
@@ -169,7 +168,7 @@
       doc.text("Haus Malibu Booking Report", 14, 15);
       doc.autoTable({
         startY: 20,
-        head: [["Name", "Check-in", "Check-out", "Time", "", ""]],
+        head: [["Book ID", "First Name", "Last Name", "Check-in", "Check-out", "Time", "Status"]],
         body: rows,
         styles: { cellPadding: 3 },
         theme: "grid"
