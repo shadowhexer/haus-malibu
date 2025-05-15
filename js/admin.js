@@ -36,6 +36,7 @@ function displayBookings() {
         <li class="booking-item" data-id="${booking.book_id}">
           <div>
             <strong>Book ID:</strong> ${booking.book_id}<br>
+            <strong>Room:</strong> ${booking.room_name}<br>
             <strong>Name:</strong> ${booking.first_name} ${booking.last_name}<br>
             <strong>Check-in:</strong> ${booking.check_in}<br>
             <strong>Check-out:</strong> ${booking.check_out}<br>
@@ -102,27 +103,32 @@ function addRoom(event) {
 
     for (let [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
-      }
+    }
 
     fetch(window.location.origin + '/haus-malibu/php/add_rooms.php', {
         method: 'POST',
         body: formData,
     })
-        .then(response => response.json())
-        .then(data => {
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
             alert(data.message);
-        })
-        .catch(err => {
-            console.log('Error: ' + err.message);
-        })
-        .finally(() => {
-            document.getElementById("room-name").value = '';
-            document.getElementById("beds").value = '';
-            document.getElementById("capacity").value = '';
-            document.getElementById("bed-size").value = '';
-            document.getElementById("price").value = '';
-            document.getElementById("desc").value = '';
-        });
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.log(err.message);
+    })
+    .finally(() => {
+        document.getElementById("room-name").value = '';
+        document.getElementById("room-type").value = '';
+        document.getElementById("beds").value = '';
+        document.getElementById("capacity").value = '';
+        document.getElementById("bed-size").value = '';
+        document.getElementById("price").value = '';
+        document.getElementById("desc").value = '';
+    });
 
     //   if (name && desc && image) {
     //     const reader = new FileReader();

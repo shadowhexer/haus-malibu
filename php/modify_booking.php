@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $data) {
     $id = $data['book_id'];
     $status = $data['status'];
 
-    $stmt = $conn->prepare("UPDATE bookings SET status = :status WHERE book_id = :id");
+    $stmt = $conn->prepare("UPDATE occupied SET status = :status WHERE book_id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->bindParam(':status', $status);
 

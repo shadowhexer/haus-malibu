@@ -25,7 +25,6 @@ try {
         country VARCHAR(255) NOT NULL,
         special_requests TEXT,
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        status INT NOT NULL DEFAULT 0,
         UNIQUE KEY (book_id)
     )";
 
@@ -39,6 +38,7 @@ try {
     $rooms_table = "CREATE TABLE IF NOT EXISTS rooms (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
+        type VARCHAR(255) NOT NULL,
         number_of_beds INT NOT NULL,
         bed_capacity INT NOT NULL,
         bed_size DECIMAL(10, 2) NOT NULL,
@@ -58,6 +58,7 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         book_id VARCHAR(36) NOT NULL,
         room_id INT NOT NULL,
+        status INT NOT NULL DEFAULT 0,
         FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
         FOREIGN KEY (book_id) REFERENCES bookings(book_id) ON DELETE CASCADE
     )";
