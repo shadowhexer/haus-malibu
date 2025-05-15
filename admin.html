@@ -34,6 +34,7 @@
     <div class="admin-card">
       <h2>BOOKINGS</h2>
       <ul id="bookingList" class="booking-list"></ul>
+
       <h3>Add Booking</h3>
       <form id="book_form">
         <input type="text" id="book_id" name="book_id" placeholder="Book ID">
@@ -48,7 +49,7 @@
     <!-- Manage Rooms -->
     <div class="admin-card">
       <h2>ROOMS</h2>
-      <ul id="roomList" class="room-list"></ul>
+      <!-- <ul id="roomList" class="room-list"></ul> -->
       <h3>Add Room</h3>
       <form id="room_form">
         <input type="text" id="room-name" name="room-name" placeholder="Room Name">
@@ -58,7 +59,7 @@
         <input type="number" id="room-price" name="price" placeholder="Room Price">
         <textarea id="room-desc" name="room-desc" placeholder="Room Description"></textarea>
         <input type="file" id="room-image">
-        <button class="add-btn" onclick="addRoom()">Add Room</button>
+        <button type="button" class="add-btn" onclick="addRoom()">Add Room</button>
       </form>
 
     </div>
