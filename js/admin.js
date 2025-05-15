@@ -97,8 +97,12 @@ function generatePDF() {
 }
 
 function addRoom(event) {
-    const form = document.getElementById('room_form');
+    const form = document.getElementById('room-form');
     const formData = new FormData(form);
+
+    for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
 
     fetch(window.location.origin + '/haus-malibu/php/add_rooms.php', {
         method: 'POST',
@@ -116,8 +120,8 @@ function addRoom(event) {
             document.getElementById("beds").value = '';
             document.getElementById("capacity").value = '';
             document.getElementById("bed-size").value = '';
-            document.getElementById("room-price").value = '';
-            document.getElementById("room-desc").value = '';
+            document.getElementById("price").value = '';
+            document.getElementById("desc").value = '';
         });
 
     //   if (name && desc && image) {

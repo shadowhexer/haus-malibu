@@ -50,11 +50,9 @@ function renderRooms() {
                             <div style="text-align: left;">
                                 <strong style="font-size: 1.5rem; margin-bottom: -10px;">₱ ${room.price} <span style="font-size: 12px; font-weight: lighter; color: gray">/ night</span></strong>
                             </div>
-                            ${status === 1 ? `
-                            <p style="color: red; text-decoration: line-through;">Not Available</p>` 
-                            : 
-                            `<p style="color: #45a049;">Available</p>
-                            <button type="button" onClick="window.location.href='guestinfo.html?id=${room.id}'" style="margin-top: 0;">BOOK NOW</button>`}
+                            
+                            <p style="color: #45a049;">Available</p>
+                            <button type="button" onClick="window.location.href='guestinfo.html?id=${room.id}'" style="margin-top: 0;">BOOK NOW</button>
                         </div>
                         <div class="amenities" style="justify-content: flex-start; margin-left: 10px;">
                             <i class="fas fa-wifi"></i>

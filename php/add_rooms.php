@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $capacity = $_POST["capacity"];
     $size = $_POST["bed-size"];
     $price = $_POST["price"];
-    $description = $_POST["room-desc"];
+    $description = $_POST["desc"];
 
     $stmt = $conn->prepare("INSERT INTO `rooms` (`name`, `number_of_beds`, `bed_capacity`, `bed_size`, `price`, `description`) 
                             VALUES (:name, :beds, :capacity, :size, :price, :description)");

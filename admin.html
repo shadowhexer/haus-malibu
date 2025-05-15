@@ -51,13 +51,20 @@
       <h2>ROOMS</h2>
       <!-- <ul id="roomList" class="room-list"></ul> -->
       <h3>Add Room</h3>
-      <form id="room_form">
-        <input type="text" id="room-name" name="room-name" placeholder="Room Name">
+      <form id="room-form">
+        <select id="room-name" name="room-name" required>
+          <option value="" disabled selected>Select number of pax</option>
+          <option value="Single Occupancy">Single Occupancy</option>
+          <option value="Single Executive">Single Executive</option>
+          <option value="2 Pax Tariff">2 Pax Tariff</option>
+          <option value="3 Pax Tariff">3 Pax Tariff</option>
+          <option value="4 Pax Tariff">4 Pax Tariff</option>
+        </select>
         <input type="number" id="beds" name="beds" placeholder="Number of Beds">
         <input type="number" id="capacity" name="capacity" placeholder="Bed Capacity">
         <input type="number" id="bed-size" name="bed-size" placeholder="Bed Size (sq ft)">
-        <input type="number" id="room-price" name="price" placeholder="Room Price">
-        <textarea id="room-desc" name="room-desc" placeholder="Room Description"></textarea>
+        <input type="number" id="price" name="price" placeholder="Room Price">
+        <textarea id="desc" name="desc" placeholder="Room Description"></textarea>
         <input type="file" id="room-image">
         <button type="button" class="add-btn" onclick="addRoom()">Add Room</button>
       </form>
