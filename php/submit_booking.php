@@ -10,6 +10,7 @@ if (!$conn) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kuhaa ang tanan input values
+    $room_id = $_POST["room_id"];
     $firstname = $_POST["first_name"];
     $lastname = $_POST["last_name"];
     $email = $_POST["email"];
@@ -24,7 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO `bookings` (`book_id`, `first_name`, `last_name`, `email`, `contact`, `address`, `city`, `country`, `special_requests`) 
                             VALUES (:id, :firstname, :lastname, :email, :contact, :address, :city, :country, :special_requests)");
 
+    $update_occupied = $conn->prepare("INSERT INTO `occupied` (`book_id`, `room_id`) VALUES (:book_id, :room_id)");
+
     $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+    $update_occupied->bindParam(':book_id', $id, PDO::PARAM_STR);
+    $update_occupied->bindParam(':room_id', $room_id);
     $stmt->bindParam(':firstname', $firstname);
     $stmt->bindParam(':lastname', $lastname);
     $stmt->bindParam(':email', $email);
@@ -35,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':special_requests', $special_requests);
 
     try {
-        if ($stmt->execute()) {
-            echo "<script>alert('Booking submitted!'); window.location.href='rooms.html';</script>";
+        if ($stmt->execute() && $update_occupied->execute()) {
+            echo "<script>alert('Booking submitted!'); window.location.href='../rooms.html';</script>";
         } else {
             $error = $stmt->errorInfo();
             echo "<script>alert('Error submiting booking.');</script>";

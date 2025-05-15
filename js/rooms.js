@@ -1,11 +1,11 @@
-let rooms = [];
+let rooms = [], status;
 
 function displayRooms() {
-
     fetch(window.location.origin + '/haus-malibu/php/retrieve_rooms.php')
         .then(response => response.json())
         .then(data => {
-            rooms = data;
+            rooms = data.rooms; // Access the rooms array from the response
+            status = data.status;
             renderRooms(); // Move the rendering here to ensure data is loaded
         })
         .catch(err => {
@@ -35,7 +35,7 @@ function renderRooms() {
                                 <p class="card-text" style="font-size: 12px; font-weight: lighter; color: gray;">
                                     Bed: ${room.number_of_beds} <br>
                                     Occupancy: ${room.bed_capacity} <br>
-                                    Size: ${room.bed_size}<br>
+                                    Size: ${room.bed_size} sqm<br>
                                 </p>
                             </div>
                             <div style="flex-grow: 1;">
@@ -50,8 +50,11 @@ function renderRooms() {
                             <div style="text-align: left;">
                                 <strong style="font-size: 1.5rem; margin-bottom: -10px;">₱ ${room.price} <span style="font-size: 12px; font-weight: lighter; color: gray">/ night</span></strong>
                             </div>
-                            <p style="color: red; text-decoration: line-through;">Not Available</p>
-                            <a href="guestinfo.html" style="margin-top: 0;"><button>BOOK NOW</button></a>
+                            ${status === 1 ? `
+                            <p style="color: red; text-decoration: line-through;">Not Available</p>` 
+                            : 
+                            `<p style="color: #45a049;">Available</p>
+                            <button type="button" onClick="window.location.href='guestinfo.html?id=${room.id}'" style="margin-top: 0;">BOOK NOW</button>`}
                         </div>
                         <div class="amenities" style="justify-content: flex-start; margin-left: 10px;">
                             <i class="fas fa-wifi"></i>
