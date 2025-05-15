@@ -7,7 +7,7 @@ $db_name = "test";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$db_name", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully<br>";
+    // echo "Connected successfully<br>";
 } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
@@ -23,12 +23,13 @@ try {
         address TEXT,
         city VARCHAR(255) NOT NULL,
         country VARCHAR(255) NOT NULL,
+        special_requests TEXT,
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        special_requests TEXT
+        status INT NOT NULL DEFAULT 0
     )";
 
     $conn->exec($bookings_table);
-    echo "Table 'bookings' created or already exists.<br>";
+    // echo "Table 'bookings' created or already exists.<br>";
 } catch(PDOException $e) {
     echo "Error creating 'bookings': " . $e->getMessage() . "<br>";
 }
@@ -43,7 +44,7 @@ try {
     )";
 
     $conn->exec($rooms_table);
-    echo "Table 'rooms' created or already exists.<br>";
+    // echo "Table 'rooms' created or already exists.<br>";
 } catch(PDOException $e) {
     echo "Error creating 'rooms': " . $e->getMessage() . "<br>";
 }
