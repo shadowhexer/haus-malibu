@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $size = $_POST["bed-size"];
     $price = $_POST["price"];
 
-    $stmt = $conn->prepare("DELETE FROM `rooms` WHERE `name` = :name AND `type` = :type AND `number_of_beds` = :beds 
-                           AND `bed_capacity` = :capacity AND `bed_size` = :size AND `price` = :price");
-
     $deleteStmt = $conn->prepare("DELETE FROM `occupied` WHERE `room_id` = (SELECT `id` FROM `rooms` WHERE `name` = :name AND `type` = :type AND `number_of_beds` = :beds 
                            AND `bed_capacity` = :capacity AND `bed_size` = :size AND `price` = :price)");
+
+    $stmt = $conn->prepare("DELETE FROM `rooms` WHERE `name` = :name AND `type` = :type AND `number_of_beds` = :beds 
+                           AND `bed_capacity` = :capacity AND `bed_size` = :size AND `price` = :price");
 
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
     $stmt->bindParam(':type', $type, PDO::PARAM_STR);
@@ -29,6 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':capacity', $capacity, PDO::PARAM_INT);
     $stmt->bindParam(':size', $size, PDO::PARAM_STR);
     $stmt->bindParam(':price', $price, PDO::PARAM_STR);
+
+    $deleteStmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $deleteStmt->bindParam(':type', $type, PDO::PARAM_STR);
+    $deleteStmt->bindParam(':beds', $beds, PDO::PARAM_INT);
+    $deleteStmt->bindParam(':capacity', $capacity, PDO::PARAM_INT);
+    $deleteStmt->bindParam(':size', $size, PDO::PARAM_STR);
+    $deleteStmt->bindParam(':price', $price, PDO::PARAM_STR);
 
     try {
         if ($stmt->execute() && $deleteStmt->execute()) {
