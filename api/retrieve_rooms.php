@@ -1,5 +1,4 @@
 <?php
-header('Content-Type: application/json');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -11,10 +10,10 @@ if (!$conn) {
 
 try {
     $stmt = $conn->prepare("SELECT r.*, o.status FROM rooms r LEFT JOIN occupied o ON r.id = o.room_id");
+    $stmt->execute(); // don’t forget this!
     $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
     header('Content-Type: application/json');
     echo json_encode(["rooms" => $rooms]);
-    exit;
 
 } catch (PDOException $e) {
     echo json_encode(["error" => "Database error: " . $e->getMessage()]);

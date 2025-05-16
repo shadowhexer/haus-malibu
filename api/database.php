@@ -81,16 +81,16 @@ try {
     echo "Error creating 'occupied': " . $e->getMessage() . "<br>";
 }
 
-try{
-    $query = "SELECT * FROM rooms";
-    $stmt = $conn->prepare($query);
-    $stmt->execute();
-    $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo "<pre>";
-    print_r($rooms);
-    echo "</pre>";
-} catch(PDOException $e) {
-    echo "Error fetching rooms: " . $e->getMessage() . "<br>";
-}
+// try{
+//     $query = "SELECT * FROM rooms";
+//     $stmt = $conn->prepare($query);
+//     $stmt->execute();
+//     $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//     echo "<pre>";
+//     print_r($rooms);
+//     echo "</pre>";
+// } catch(PDOException $e) {
+//     echo "Error fetching rooms: " . $e->getMessage() . "<br>";
+// }
 
 ?>
