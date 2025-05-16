@@ -14,9 +14,9 @@ function checkBooking(event) {
                 alert("Error: " + data.message);
                 return;
             }
-            if (data.status === 0) data.result.status = 'Pending';
-            else if (data.status === 1) data.result.status = 'Accepted';
-            else if (data.status === 2) data.result.status = 'Declined';
+            if (data.result.status === 0) data.result.status = 'Pending';
+            else if (data.result.status === 1) data.result.status = 'Accepted';
+            else if (data.result.status === 2) data.result.status = 'Declined';
             booking = data.result
             displayBookings();
         })
@@ -24,7 +24,7 @@ function checkBooking(event) {
             console.log('Error: ' + err.message);
         })
         .finally(() => {
-            document.getElementById("book_id").value = '';
+            document.getElementById("book-id").value = '';
             // document.getElementById("check-in").value = '';
             // document.getElementById("check-out").value = '';
         });
