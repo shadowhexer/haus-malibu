@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ob_start();
 
 // Import database.php to continue the connection
-require_once __DIR__.'\database.php';
+require_once 'database.php';
 if (!$conn) {
     die("Database connection failed!");
 }
