@@ -1,11 +1,23 @@
 <?php
-$servername = "localhost";
-$username = "root"; // default is root; change based on your config
-$password = ""; // default is none; change based on your config
-$db_name = "test";
+// $servername = "localhost";
+// $username = "root"; // default is root; change based on your config
+// $password = ""; // default is none; change based on your config
+// $db_name = "test";
+
+$uri = "mysql://avnadmin:AVNS_uPP0WKcP9xgukoAP8YV@mysql-shadowhexer.b.aivencloud.com:14205/defaultdb?ssl-mode=REQUIRED";
+
+$fields = parse_url($uri);
+
+// build the DSN including SSL settings
+$db = "mysql:";
+$db .= "host=" . $fields["host"];
+$db .= ";port=" . $fields["port"];;
+$db .= ";dbname=test";
+$db .= ";sslmode=verify-ca;sslrootcert=ca.pem";
+
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$db_name", $username, $password);
+    $conn = new PDO($db, $fields["user"], $fields["pass"]);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // echo "Connected successfully<br>";
 } catch(PDOException $e) {
@@ -44,7 +56,7 @@ try {
         bed_size DECIMAL(10, 2) NOT NULL,
         price DECIMAL(10, 2) NOT NULL,
         description TEXT NOT NULL,
-        image VARCHAR(255) NOT NULL
+        image VARCHAR(255)
     )";
 
     $conn->exec($rooms_table);

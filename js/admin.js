@@ -4,7 +4,7 @@ function addBooking(event) {
     const form = document.getElementById('book_form');
     const formData = new FormData(form);
 
-    fetch(window.location.origin + '/haus-malibu/php/retrieve_booking.php', {
+    fetch(window.location.origin + '/haus-malibu/api/retrieve_booking.php', {
         method: 'POST',
         body: formData,
     })
@@ -55,7 +55,7 @@ function displayBookings() {
 
 function modifyBooking(id, bookStatus) {
 
-    fetch(window.location.origin + '/haus-malibu/php/modify_booking.php', {
+    fetch(window.location.origin + '/haus-malibu/api/modify_booking.php', {
         method: 'POST',
         body: JSON.stringify({ book_id: id, status: bookStatus }),
         headers: { 'Content-Type': 'application/json' }
@@ -105,7 +105,7 @@ function addRoom(event) {
         console.log(`${key}: ${value}`);
     }
 
-    fetch(window.location.origin + '/haus-malibu/php/add_rooms.php', {
+    fetch(window.location.origin + '/haus-malibu/api/add_rooms.php', {
         method: 'POST',
         body: formData,
     })
