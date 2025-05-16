@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
 
-    if (!isNaN(id)) {
+    if (id) {
         addReceipt(id);
     } else {
         console.warn("No room ID found in URL.");

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- <script type="text/javascript" src="./js/receipt.js"></script> -->
+    <script type="text/javascript" src="./js/receipt.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guest Information</title>
@@ -40,16 +40,14 @@
         </div>
         <p>&copy; 2025 Haus Malibu. All rights reserved.</p>
     </footer>
-    <script>
+    <!-- <script>
         let receipt = [];
 
         // Fetching the GET parameters in the URL
         const urlParams = new URLSearchParams(window.location.search);
-        console.log('URL search params:', window.location.search);
         const id = urlParams.get('id');
-        console.log('Retrieved ID:', id);
 
-        if (id !== null && !isNaN(id)) {
+        if (!isNaN(id)) {
             addReceipt(id);
         } else {
             console.warn("No room ID found in URL.");
@@ -112,7 +110,7 @@
 
             doc.save("Haus Malibu Receipt.pdf");
         };
-    </script>
+    </script> -->
 
 </body>
 
