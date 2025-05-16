@@ -41,7 +41,7 @@ try {
     )";
 
     $conn->exec($bookings_table);
-    echo "Table 'bookings' created or already exists.<br>";
+    // echo "Table 'bookings' created or already exists.<br>";
 } catch(PDOException $e) {
     echo "Error creating 'bookings': " . $e->getMessage() . "<br>";
 }
