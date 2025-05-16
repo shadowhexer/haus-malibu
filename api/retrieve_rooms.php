@@ -13,7 +13,8 @@ try {
     $stmt->execute();
     $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
     header('Content-Type: application/json');
-    echo json_encode($rooms);
+    print_r($rooms);
+    echo json_encode(["rooms" => $rooms]);
 
 } catch (PDOException $e) {
     echo json_encode(["error" => "Database error: " . $e->getMessage()]);

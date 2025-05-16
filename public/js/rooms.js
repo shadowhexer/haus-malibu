@@ -4,7 +4,7 @@ function displayRooms() {
     fetch('/api/retrieve_rooms')
         .then(response => response.json())
         .then(data => {
-            rooms = data; // Access the rooms array from the response
+            rooms = data.rooms; // Access the rooms array from the response
             console.log(rooms); // Log the rooms array to check its contents
             renderRooms(); // Move the rendering here to ensure data is loaded
         })
