@@ -10,7 +10,7 @@ function addBooking(event) {
         .then(data => {
            if (data.status === "success") {
                 alert(data.message);
-                window.location.href = 'receipt.html?id=' + data.booking_id;
+                window.location.href = 'receipt.html?id=' + data.book_id;
             } else {
                 alert("Error: " + data.message);
             }
