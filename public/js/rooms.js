@@ -5,7 +5,6 @@ function displayRooms() {
         .then(response => response.json())
         .then(data => {
             rooms = data.rooms; // Access the rooms array from the response
-            console.log(rooms); // Log the rooms array to check its contents
             renderRooms(); // Move the rendering here to ensure data is loaded
         })
         .catch(err => {

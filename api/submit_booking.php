@@ -48,13 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         if ($stmt->execute() && $update_occupied->execute()) {
-            echo "<script>alert('Booking submitted!'); window.location.href='../rooms.html';</script>";
+            echo json_encode(["message" => "Booking submitted successfully.", "status" => "success", "book_id" => $id]);
         } else {
             $error = $stmt->errorInfo();
-            echo "<script>alert('Error submiting booking.');</script>";
+            echo json_encode(["message" => "Failed to submit booking: " . $error]);
         }
     } catch (PDOException $e) {
-        echo "<script>alert('Database error: " . addslashes($e->getMessage()) . "'); window.location.href='rooms.html';</script>";
+        echo json_encode(["message" => "Database error: " . $e->getMessage()]);
     }
 }
 

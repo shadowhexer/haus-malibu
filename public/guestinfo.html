@@ -25,7 +25,7 @@
 
     <section class="guest-info-section">
         <h2>Guest Details</h2>
-        <form class="guest-info-form" method="post" enctype="multipart/form-data">
+        <form class="guest-info-form" method="post" id="guest-form" enctype="multipart/form-data">
             <div>
                 <input type="hidden" id="room-id" name="room-id">
                 <div>
@@ -74,7 +74,7 @@
                     <textarea id="special_requests" name="special_requests" rows="3"></textarea>
                 </div>
                 <div class="guest-info-button-container">
-                    <button formaction="api/submit_booking" class="guest-info-button">Submit</button>
+                    <button type="button" onclick="addBooking()" class="guest-info-button">Submit</button>
                 </div>
         </form>
 
@@ -101,6 +101,7 @@
             console.warn("No room ID found in URL.");
         }
     </script>
+    <script src="js/guestinfo.js" type="text/javascript"></script>
 </body>
 
 </html>

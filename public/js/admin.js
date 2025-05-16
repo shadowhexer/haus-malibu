@@ -1,6 +1,6 @@
 let booking = [], news = [];
 
-function addBooking(event) {
+function checkBooking(event) {
     const form = document.getElementById('book_form');
     const formData = new FormData(form);
 
@@ -68,33 +68,6 @@ function modifyBooking(id, bookStatus) {
         .catch(err => {
             console.log('Error: ' + err.message);
         })
-}
-
-function generatePDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const rows = [booking].map(b => [
-        b.book_id, b.first_name, b.last_name, b.checkIn, b.checkOut, b.date,
-        {
-            content: b.status,
-            styles: {
-                fontStyle: 'bold',
-                textColor: b.status === "Accepted" ? [40, 167, 69] :
-                    b.status === "Declined" ? [220, 53, 69] : [255, 193, 7]
-            }
-        }
-    ]);
-
-    doc.text("Haus Malibu Booking Report", 14, 15);
-    doc.autoTable({
-        startY: 20,
-        head: [["Book ID", "First Name", "Last Name", "Check-in", "Check-out", "Time", "Status"]],
-        body: rows,
-        styles: { cellPadding: 3 },
-        theme: "grid"
-    });
-
-    doc.save("Haus Malibu Bookings.pdf");
 }
 
 function addRoom(event) {
