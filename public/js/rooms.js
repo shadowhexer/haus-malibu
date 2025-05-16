@@ -1,7 +1,7 @@
 let rooms = [];
 
 function displayRooms() {
-    fetch('/api/retrieve_rooms.php')
+    fetch('/api/retrieve_rooms')
         .then(response => response.json())
         .then(data => {
             rooms = data; // Access the rooms array from the response

@@ -4,7 +4,7 @@ function addBooking(event) {
     const form = document.getElementById('book_form');
     const formData = new FormData(form);
 
-    fetch('/api/retrieve_booking.php', {
+    fetch('/api/retrieve_booking', {
         method: 'POST',
         body: formData,
     })
@@ -55,7 +55,7 @@ function displayBookings() {
 
 function modifyBooking(id, bookStatus) {
 
-    fetch('/api/modify_booking.php', {
+    fetch('/api/modify_booking', {
         method: 'POST',
         body: JSON.stringify({ book_id: id, status: bookStatus }),
         headers: { 'Content-Type': 'application/json' }
@@ -105,7 +105,7 @@ function addRoom(event) {
         console.log(`${key}: ${value}`);
     }
 
-    fetch('api/add_rooms.php', {
+    fetch('api/add_rooms', {
         method: 'POST',
         body: formData,
     })
