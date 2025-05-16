@@ -86,7 +86,9 @@ try{
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo ($rooms);
+    echo "<pre>";
+    print_r($rooms);
+    echo "</pre>";
 } catch(PDOException $e) {
     echo "Error fetching rooms: " . $e->getMessage() . "<br>";
 }
