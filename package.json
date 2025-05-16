@@ -1,0 +1,31 @@
+{
+  "scripts": {
+    "vercel-build": "php-vercel build"
+  },
+  "name": "haus-malibu",
+  "version": "1.0.0",
+  "description": "Haus Malibu Room Reservation and Management System",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadowhexer/haus-malibu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shadowhexer/haus-malibu/issues"
+  },
+  "homepage": "https://github.com/shadowhexer/haus-malibu#readme",
+  "dependencies": {
+    "@libphp/amazon-linux-2-v83": ">=0.0.7"
+  },
+  "devDependencies": {
+    "@types/glob": "8.1.0",
+    "@types/node": "18.19.18",
+    "@vercel/build-utils": "7.11.0",
+    "jest": "29.7.0",
+    "typescript": "5.4.5"
+  }
+}
