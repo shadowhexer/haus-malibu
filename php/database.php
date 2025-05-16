@@ -58,6 +58,8 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         book_id VARCHAR(36) NOT NULL,
         room_id INT NOT NULL,
+        check_in DATE NOT NULL,
+        check_out DATE NOT NULL,
         status INT NOT NULL DEFAULT 0,
         FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
         FOREIGN KEY (book_id) REFERENCES bookings(book_id) ON DELETE CASCADE

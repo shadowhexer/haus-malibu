@@ -325,7 +325,7 @@
         <h2>Guest Details</h2>
         <form class="guest-info-form" action="php/submit_booking.php" method="post" enctype="multipart/form-data">
             <div>
-                <input type="hidden" id="room_id" name="room_id">
+                <input type="hidden" id="room-id" name="room-id">
                 <div>
                     <label for="first_name">First Name:</label>
                     <input type="text" id="first_name" name="first_name" required>
@@ -360,6 +360,14 @@
                     </select>
                 </div>
                 <div>
+                    <label for="check-in">Check-In:</label>
+                    <input type="date" id="check-in" name="check-in" onfocus="(this.type='date')" required />
+                </div>
+                <div>
+                    <label for="check-out">Check-Out:</label>
+                    <input type="date" id="check-out" name="check-out" onfocus="(this.type='date')" required/>
+                </div>
+                <div>
                     <label for="special_requests">Special Requests (Optional):</label>
                     <textarea id="special_requests" name="special_requests" rows="3"></textarea>
                 </div>
@@ -386,7 +394,7 @@
         const roomId = urlParams.get('id');
 
         if (!isNaN(roomId)) {
-            document.getElementById("room_id").value = roomId;
+            document.getElementById("room-id").value = roomId;
         } else {
             console.warn("No room ID found in URL.");
         }
