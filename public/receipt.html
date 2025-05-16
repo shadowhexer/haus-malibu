@@ -45,9 +45,11 @@
 
         // Fetching the GET parameters in the URL
         const urlParams = new URLSearchParams(window.location.search);
+        console.log('URL search params:', window.location.search);
         const id = urlParams.get('id');
+        console.log('Retrieved ID:', id);
 
-        if (!isNaN(id)) {
+        if (id !== null && !isNaN(id)) {
             addReceipt(id);
         } else {
             console.warn("No room ID found in URL.");
