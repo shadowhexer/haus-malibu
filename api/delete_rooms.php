@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["room-name"];
     $type = $_POST["room-type"];
     $beds = $_POST["beds"];
-    $capacity = $_POST["capacity"];
+    $capacity = $_POST["capacity"];emerge
     $size = $_POST["bed-size"];
     $price = $_POST["price"];
 
@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':capacity', $capacity, PDO::PARAM_INT);
     $stmt->bindParam(':size', $size, PDO::PARAM_STR);
     $stmt->bindParam(':price', $price, PDO::PARAM_STR);
-    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
 
     try {
         if ($stmt->execute() && $deleteStmt->execute()) {
