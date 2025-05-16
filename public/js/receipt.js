@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const id = urlParams.get('id');
 
     if (!isNaN(id)) {
-        addBooking(id);
+        addReceipt(id);
     } else {
         console.warn("No room ID found in URL.");
     }
 });
 
-function addBooking(bookId) {
+function addReceipt(bookId) {
     const formData = new FormData();
     formData.append('book-id', bookId);
 
