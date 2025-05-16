@@ -12,6 +12,7 @@ try {
     $stmt = $conn->prepare("SELECT r.*, o.status FROM rooms r LEFT JOIN occupied o ON r.id = o.room_id");
     $stmt->execute();
     $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    header('Content-Type: application/json');
     echo json_encode($rooms);
 
 } catch (PDOException $e) {
