@@ -81,4 +81,14 @@ try {
     echo "Error creating 'occupied': " . $e->getMessage() . "<br>";
 }
 
+try{
+    $query = "SELECT * FROM rooms";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo ($rooms);
+} catch(PDOException $e) {
+    echo "Error fetching rooms: " . $e->getMessage() . "<br>";
+}
+
 ?>
