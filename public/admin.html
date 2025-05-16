@@ -54,6 +54,24 @@
         <button type="button" class="add-btn" onclick="addRoom()">Add Room</button>
       </form>
 
+      <h3>Remove Room</h3>
+      <form id="delete-form">
+        <select id="room-type" name="room-type" required>
+          <option value="" disabled selected>Select room type</option>
+          <option value="Single Occupancy">Single Occupancy</option>
+          <option value="Single Executive">Single Executive</option>
+          <option value="2 Pax Tariff">2 Pax Tariff</option>
+          <option value="3 Pax Tariff">3 Pax Tariff</option>
+          <option value="4 Pax Tariff">4 Pax Tariff</option>
+        </select>
+        <input type="text" id="room-name" name="room-name" placeholder="Room Name" required>
+        <input type="number" id="beds" name="beds" placeholder="Number of Beds">
+        <input type="number" id="capacity" name="capacity" placeholder="Bed Capacity">
+        <input type="number" id="bed-size" name="bed-size" placeholder="Bed Size (sq ft)">
+        <input type="number" id="price" name="price" placeholder="Room Price">
+        <button type="button" class="add-btn" onclick="deleteRoom()">Add Room</button>
+      </form>
+
     </div>
 
     <!-- Manage News and Updates -->

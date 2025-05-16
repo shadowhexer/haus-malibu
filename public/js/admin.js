@@ -25,8 +25,6 @@ function checkBooking(event) {
         })
         .finally(() => {
             document.getElementById("book-id").value = '';
-            // document.getElementById("check-in").value = '';
-            // document.getElementById("check-out").value = '';
         });
 }
 
@@ -74,13 +72,9 @@ function modifyBooking(id, bookStatus) {
         })
 }
 
-function addRoom(event) {
+function addRoom() {
     const form = document.getElementById('room-form');
     const formData = new FormData(form);
-
-    for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-    }
 
     fetch('api/add_rooms', {
         method: 'POST',
@@ -115,6 +109,35 @@ function addRoom(event) {
     //     };
     //     reader.readAsDataURL(image);
     //   }
+}
+
+function deleteRoom() {
+    const form = document.getElementById('delete-form');
+    const formData = new FormData(form);
+
+    fetch('api/delete_rooms', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert(data.message);
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.log(err.message);
+    })
+    .finally(() => {
+        document.getElementById("room-name").value = '';
+        document.getElementById("room-type").value = '';
+        document.getElementById("beds").value = '';
+        document.getElementById("capacity").value = '';
+        document.getElementById("bed-size").value = '';
+        document.getElementById("price").value = '';
+    });
 }
 
 function addNews() {
