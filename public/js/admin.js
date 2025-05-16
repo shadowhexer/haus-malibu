@@ -10,10 +10,14 @@ function checkBooking(event) {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 0) data.status = 'Pending';
-            else if (data.status === 1) data.status = 'Accepted';
-            else if (data.status === 2) data.status = 'Declined';
-            booking = data
+            if (data.status === "error") {
+                alert("Error: " + data.message);
+                return;
+            }
+            if (data.status === 0) data.result.status = 'Pending';
+            else if (data.status === 1) data.result.status = 'Accepted';
+            else if (data.status === 2) data.result.status = 'Declined';
+            booking = data.result
             displayBookings();
         })
         .catch(err => {

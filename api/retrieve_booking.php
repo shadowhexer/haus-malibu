@@ -21,15 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
-            // Convert to JSON and echo
-            header('Content-Type: application/json');
-            echo json_encode($result);
+            echo json_encode(["status" => "success", "result" => $result]);
         } else {
             $error = $stmt->errorInfo();
-            echo "<script>alert('Error retrieving data.');</script>";
+            echo json_encode(["status" => "error", "message" => "Error retrieving data"]);
         }
-    } catch (PDOException $e) {
-        echo "<script>alert('Database error: $e'); window.location.href='rooms.html';</script>";
+        } catch (PDOException $e) {
+        echo json_encode(["status" => "error", "message" => "Database error: " . $e->getMessage()]);
     }
 }
 

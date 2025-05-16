@@ -22,7 +22,11 @@ function addReceipt(bookId) {
     })
     .then(response => response.json())
     .then(data => {
-        receipt = data;
+        if (data.status === "error") {
+            alert("Error: " + data.message);
+            return;
+        }
+        receipt = data.result;
         displayReceipt();
     })
     .catch(err => {
@@ -35,14 +39,14 @@ function displayReceipt() {
     list.innerHTML = '';
 
     list.innerHTML += `
-        <li class="booking-item" data-id="${booking.book_id}">
+        <li class="booking-item" data-id="${receipt.book_id}">
           <div>
-            <strong>Book ID:</strong> ${booking.book_id}<br>
-            <strong>Room:</strong> ${booking.room_name}<br>
-            <strong>Name:</strong> ${booking.first_name} ${booking.last_name}<br>
-            <strong>Check-in:</strong> ${booking.check_in}<br>
-            <strong>Check-out:</strong> ${booking.check_out}<br>
-            <strong>Booking Time:</strong> ${booking.date}<br>
+            <strong>Book ID:</strong> ${receipt.book_id}<br>
+            <strong>Room:</strong> ${receipt.room_name}<br>
+            <strong>Name:</strong> ${receipt.first_name} ${receipt.last_name}<br>
+            <strong>Check-in:</strong> ${receipt.check_in}<br>
+            <strong>Check-out:</strong> ${receipt.check_out}<br>
+            <strong>Booking Time:</strong> ${receipt.date}<br>
           </div>
           <div class="booking-actions">
             <button type="button" class="generate-btn" onclick="generatePDF()">Download Report</button>
