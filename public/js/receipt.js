@@ -1,3 +1,5 @@
+import { jsPDF } from "jspdf";
+
 let receipt = [];
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,7 +58,7 @@ function displayReceipt() {
 };
 
 function generatePDF() {
-    const { jsPDF } = window.jspdf;
+
     const doc = new jsPDF();
     const rows = [booking].map(b => [
         b.book_id, b.first_name, b.last_name, b.checkIn, b.checkOut, b.date,

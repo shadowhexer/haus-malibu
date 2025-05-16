@@ -8,6 +8,8 @@
     <title>Guest Information</title>
     <script type="module" src='./js/html-include-element.js'></script>
     <script type="module" src="./js/webcomponents-loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="./css/guest-info.css">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -40,77 +42,6 @@
         </div>
         <p>&copy; 2025 Haus Malibu. All rights reserved.</p>
     </footer>
-    <!-- <script>
-        let receipt = [];
-
-        // Fetching the GET parameters in the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-
-        if (!isNaN(id)) {
-            addReceipt(id);
-        } else {
-            console.warn("No room ID found in URL.");
-        }
-
-        function addReceipt(bookId) {
-            const formData = new FormData();
-            formData.append('book-id', bookId);
-
-            fetch('/api/retrieve_booking', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    receipt = data;
-                    displayReceipt();
-                })
-                .catch(err => {
-                    console.log('Error: ' + err.message);
-                });
-        }
-
-        function displayReceipt() {
-            const list = document.getElementById("receipt-list");
-            list.innerHTML = '';
-
-            list.innerHTML += `
-        <li class="booking-item" data-id="${booking.book_id}">
-          <div>
-            <strong>Book ID:</strong> ${booking.book_id}<br>
-            <strong>Room:</strong> ${booking.room_name}<br>
-            <strong>Name:</strong> ${booking.first_name} ${booking.last_name}<br>
-            <strong>Check-in:</strong> ${booking.check_in}<br>
-            <strong>Check-out:</strong> ${booking.check_out}<br>
-            <strong>Booking Time:</strong> ${booking.date}<br>
-          </div>
-          <div class="booking-actions">
-            <button type="button" class="generate-btn" onclick="generatePDF()">Download Report</button>
-            <button type="button" class="generate-btn" onclick="window.location.href='rooms.html'">Exit</button>
-          </div>
-        </li>`;
-        };
-
-        function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const rows = [booking].map(b => [
-                b.book_id, b.first_name, b.last_name, b.checkIn, b.checkOut, b.date,
-            ]);
-
-            doc.text("Haus Malibu Booking Report", 14, 15);
-            doc.autoTable({
-                startY: 20,
-                head: [["Book ID", "First Name", "Last Name", "Check-in", "Check-out", "Time"]],
-                body: rows,
-                styles: { cellPadding: 3 },
-                theme: "grid"
-            });
-
-            doc.save("Haus Malibu Receipt.pdf");
-        };
-    </script> -->
 
 </body>
 
