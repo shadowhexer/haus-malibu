@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["room-name"];
     $type = $_POST["room-type"];
     $beds = $_POST["beds"];
-    $capacity = $_POST["capacity"];emerge
+    $capacity = $_POST["capacity"];
     $size = $_POST["bed-size"];
     $price = $_POST["price"];
 
