@@ -1,0 +1,195 @@
+
+.booking-form {
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 1200px;
+    display: flex; /* Use flexbox for card layout */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.card {
+    max-width: 900px; /* Increased the maximum width of the card */
+    margin-bottom: 20px; /* Add some margin between cards */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push text to top, button to bottom */
+    height: 100%; /* Make body take full height */
+}
+
+.row.g-0 {
+    display: flex; /* Ensure row behaves as flex container */
+    flex-direction: row;
+    align-items: stretch; /* Make columns the same height */
+    height: auto; /* Adjusted to auto to fit content */
+}
+
+.col-md-4 {
+    max-width: 350px; /* Increased the maximum width of the image container */
+    overflow: hidden; /* Clip any rounding from the image */
+    height: 100%; /* Make the image container take the full row height */
+}
+
+.col-md-8 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Position content within the text area */
+    padding-left: 30px; /* Increased spacing from the image */
+}
+
+.card img {
+    width: 100%;
+    height: 100%; /* Make the image fill the height of the column */
+    display: block;
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+.booking-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    width: 120px; /* Slightly wider button */
+    height: 40px; /* Slightly taller button */
+    font-size: small;
+    border-radius: 5px;
+}
+
+.booking-form button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    background-color: #006118;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer-logo {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    margin-top: 10;
+    width: 150px;
+    height: auto;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.social-links a {
+    color: rgb(128, 245, 92);
+    font-size: 1.5rem;
+    text-decoration: none;
+    margin: 10px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+}
+
+.social-links a:hover {
+    color: #eead4a;
+}
+.social-links i{
+    color: #d36c0b;;
+}
+.social-links i:hover {
+    color: rgb(128, 245, 92);
+}
+
+/* --- New CSS for Amenities Icons --- */
+.amenities {
+    display: flex;
+    gap: 20px; /* Adjust spacing between icons */
+    font-size: 1.2rem; /* Adjust icon size */
+    color: #555; /* Adjust icon color */
+    align-items: center; /* Vertically align icons */
+    margin-top: 15px; /* Add more space above the icons */
+    justify-content: flex-start; /* Align icons to the left */
+}
+
+.amenities i {
+    /* You can add specific styling for the icons if needed */
+}
+
+/* --- Responsive CSS (Changes Made Here) --- */
+@media (max-width: 992px) { /* Adjust breakpoint for medium screens */
+    .card {
+        max-width: 768px; /* Slightly reduce card width on medium screens */
+    }
+    .col-md-4 {
+        max-width: 300px;
+    }
+    .col-md-8 {
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .booking-form {
+        display: block; /* Stack the cards on small screens */
+    }
+
+    .card {
+        width: 100%; /* Make the cards take up the full width */
+        max-width: none; /* Remove the maximum width constraint */
+        margin-bottom: 20px; /* Add some spacing between stacked cards */
+    }
+
+    .row.g-0 {
+        flex-direction: column; /* Stack image and text vertically */
+        height: auto; /* Let the height adjust */
+    }
+
+    .col-md-4 {
+        max-width: 100%; /* Image takes full width */
+        height: auto; /* Adjust image height */
+    }
+
+    .col-md-8 {
+        padding-left: 0; /* Remove left padding */
+    }
+
+    .card img {
+        width: 100%;
+        height: auto; /* Adjust height to maintain aspect ratio */
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 1rem; /* Add padding to the text area */
+    }
+
+    .booking-form button {
+        width: 100%; /* Full width button */
+        height: auto;
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    .amenities {
+        margin-top: 10px;
+        gap: 10px;
+        font-size: 1rem;
+    }
+}
