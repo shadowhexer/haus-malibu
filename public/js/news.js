@@ -1,7 +1,7 @@
 let news = [];
 
 function fetchNews() {
-    fetch('/api/news?action=get')
+    fetch('/api/news?action=get-news')
         .then(response => response.json())
         .then(data => {
             news = data;

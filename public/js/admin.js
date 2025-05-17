@@ -157,7 +157,7 @@ function addNews() {
     const form = document.getElementById('news-form');
     const formData = new FormData(form);
 
-    fetch('api/news?action=', {
+    fetch('api/news?action=add-news', {
         method: 'POST',
         body: formData,
     })
