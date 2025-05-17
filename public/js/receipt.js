@@ -3,7 +3,7 @@ let receipt = [];
 document.addEventListener('DOMContentLoaded', function() {
     // Fetching the GET parameters in the URL
     const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+    const id = urlParams.get('booking_id');
 
     if (id) {
         addReceipt(id);
