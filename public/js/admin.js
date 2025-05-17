@@ -150,7 +150,7 @@ function addNews() {
     
     if (imageInput && imageInput.files.length > 0) {
         const reader = new FileReader();
-        reader.onload = (event) => {
+        reader.onloadend = (event) => {
             console.log({ image: event.target.result });
             formObject.image = event.target.result;
         };

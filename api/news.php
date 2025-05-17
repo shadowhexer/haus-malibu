@@ -18,7 +18,7 @@ function addNews($data, $conn) {
     }
 
     // Get the base64 image data from the request
-    $base64_image = $data['image'];
+    $base64_image = $data['image'] ?? null;
 
     // Validate base64 image data
     if (empty($base64_image)) {
