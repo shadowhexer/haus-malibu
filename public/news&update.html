@@ -30,6 +30,10 @@
   <html-include src="./footer.html" no-shadow mode="same-origin"></html-include>
 
   <script src="js/news.js" type="text/javascript"></script>
+  <script>
+    console.log("Testing if JS runs inside HTML");
+    document.getElementById("news-section").innerHTML = "<h2>JS Works!</h2>";
+  </script>
 </body>
 
 </html>
