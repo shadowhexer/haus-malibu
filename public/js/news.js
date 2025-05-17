@@ -1,7 +1,7 @@
 let news = [];
 
 function fetchNews() {
-    fetch('/api/news?action=get-news')
+    fetch(window.location.origin + 'haus-malibu/api/news?action=get-news')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
