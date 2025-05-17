@@ -141,24 +141,21 @@ function deleteRoom() {
 }
 
 function addNews() {
-    // const title = document.getElementById("news-title").value;
-    // const content = document.getElementById("news-content").value;
-    // const image = document.getElementById("news-image").files[0];
-
-    // if (title && content && image) {
-    //     const reader = new FileReader();
-    //     reader.onload = () => {
-    //         news.push({ id: Date.now(), title, content, image: reader.result });
-    //         displayNews();
-    //     };
-    //     reader.readAsDataURL(image);
-    // }
 
     const form = document.getElementById('news-form');
     const formData = new FormData(form);
     const formObject = Object.fromEntries(formData.entries());
 
-    console.log(form);
+    const imageInput = document.getElementById('image');
+    
+    if (imageInput && imageInput.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            console.log({ image: event.target.result });
+            formObject.image = event.target.result;
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+    }
 
     fetch('api/news?action=add-news', {
         method: 'POST',
@@ -171,12 +168,19 @@ function addNews() {
     .then(data => {
         if (data.status === "success") {
             alert(data.message);
+            window.location.href = 'admin.html';
         } else {
             alert("Error: " + data.message);
         }
     })
     .catch(err => {
         console.log(err.message);
+    })
+    .finally(() => {
+        document.getElementById('title').style.display = '';
+        document.getElementById('content').style.display = '';
+        document.getElementById('image').style.display = '';
+        document.getElementById('image-alt').style.display = '';
     })
 }
 

@@ -11,11 +11,43 @@ header('Content-Type: application/json');
 
 
 function addNews($data, $conn) {
+
+    // Get the base64 image data from the request
+    $base64_image = $data['image'];
+    
+    // Extract the actual base64 string (remove data:image/xxx;base64, prefix)
+    if (preg_match('/^data:image\/(\w+);base64,/', $base64_image, $type)) {
+        $base64_image = substr($base64_image, strpos($base64_image, ',') + 1);
+        $type = strtolower($type[1]); // jpg, png, gif
+    } else {
+        throw new \Exception('Invalid base64 image data');
+    }
+
+    // Decode base64 data
+    $image_data = base64_decode($base64_image);
+    
+    if ($image_data === false) {
+        throw new \Exception('Base64 decode failed');
+    }
+
+    // Create unique filename
+    $target_dir = "images/";
+    $filename = uniqid() . '.' . $type;
+    $target_file = $target_dir . $filename;
+    
+    // Save the file
+    if (!file_put_contents($target_file, $image_data)) {
+        throw new \Exception('Failed to save image');
+    }
+
+    // Generate the full URL for the image
+    $file_url = dirname($_SERVER['PHP_SELF']) . '/' . $target_file;
+
     $stmt = $conn->prepare("INSERT INTO news (`title`, `content`, `image`, `image_alt`) VALUES (:title, :content, :image, :image_alt)");
 
     $stmt->bindParam(':title', $data['title'], PDO::PARAM_STR);
     $stmt->bindParam(':content', $data['content'], PDO::PARAM_STR);
-    $stmt->bindParam(':image', $data['image']['name'], PDO::PARAM_STR);
+    $stmt->bindParam(':image', $file_url, PDO::PARAM_STR);
     $stmt->bindParam(':image_alt', $data['image-alt'], PDO::PARAM_STR);
 
     return $stmt->execute();
