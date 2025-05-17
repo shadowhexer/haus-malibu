@@ -1,5 +1,8 @@
 let news = [];
 
+console.log("Testing if JS runs inside HTML");
+document.getElementById("news-section").innerHTML = "<h2>JS Works!</h2>";
+
 function fetchNews() {
     fetch('/api/news?action=get-news')
         .then(response => response.json())
