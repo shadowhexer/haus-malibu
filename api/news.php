@@ -54,11 +54,10 @@ function addNews($data, $conn) {
         'image/webp' => 'webp'
     ];
     $extension = $extMap[$mime] ?? 'bin';
-    $filename = uniqid('', true) . '.' . $extension;
-      
+    
     // Create unique filename
     $target_dir = "images/";
-    $filename = uniqid() . '.' . $type;
+    $filename = uniqid('', true) . '.' . $extension;
     $target_file = $target_dir . $filename;
     
     // Save the file
