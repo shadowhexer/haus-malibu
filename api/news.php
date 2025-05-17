@@ -26,14 +26,14 @@ function addNews($data, $conn) {
         throw new \Exception('Empty image data');
     }
 
-    $finfo = finfo_open();
-    $mime = finfo_buffer($finfo, $base64_image, FILEINFO_MIME_TYPE);
-    finfo_close($finfo);
+    // $finfo = finfo_open();
+    // $mime = finfo_buffer($finfo, $base64_image, FILEINFO_MIME_TYPE);
+    // finfo_close($finfo);
 
-    $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
-    if (!in_array($mime, $allowed)) {
-        throw new \Exception('Disallowed image type');
-    }
+    // $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    // if (!in_array($mime, $allowed)) {
+    //     throw new \Exception('Disallowed image type');
+    // }
     
     $imageData = preg_replace('#^data:image/\w+;base64,#i', '', $base64_image);
 

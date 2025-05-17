@@ -151,6 +151,7 @@ function addNews() {
         return new Promise((resolve) => {
             const reader = new FileReader();
             reader.onloadend = (event) => {
+                console.log({image: event.target.result});
                 formObject.image = event.target.result;
                 sendNewsData(formObject);
             };
