@@ -20,7 +20,6 @@ function addNews($data, $conn) {
 
     // Get the base64 image data from the request
     $base64_image = $data['image'] ?? null;
-    print_r("Image: " . $base64_image);
 
     // Validate base64 image data
     if (empty($base64_image)) {
@@ -42,14 +41,14 @@ function addNews($data, $conn) {
     $imageData = preg_replace('#^data:image/\w+;base64,#i', '', $base64_image);
 
     // Decode base64 data
-    $image_data = base64_decode($base64_image);
+    $image_data = base64_decode($imageData);
     
     if ($image_data === false) {
         throw new \Exception('Base64 decode failed');
     }
 
     $extMap = [
-        'image/jpeg' => 'jpeg',
+        'image/jpeg' => 'jpg',
         'image/png' => 'png',
         'image/gif' => 'gif',
         'image/webp' => 'webp'

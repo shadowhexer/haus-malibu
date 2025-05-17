@@ -1,7 +1,7 @@
 let news = [];
 
 function fetchNews() {
-    fetch(window.location.origin + '/haus-malibu/api/news?action=get-news', {
+    fetch(window.location.origin + '/haus-malibu/api/news.php?action=get-news', {
         method: 'GET',
         mode: 'cors',
         credentials: 'include',

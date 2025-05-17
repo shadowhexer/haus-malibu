@@ -17,9 +17,9 @@ $db_name = "test";
 
 
 try {
-    $conn = new PDO($db, $fields["user"], $fields["pass"]);
+    // $conn = new PDO($db, $fields["user"], $fields["pass"]);
+    $conn = new PDO("mysql:host=$servername;dbname=$db_name", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // echo "Connected successfully<br>";
 } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }

@@ -16,7 +16,7 @@ function addReceipt(bookId) {
     const formData = new FormData();
     formData.append('book-id', bookId);
 
-    fetch(window.location.origin + '/haus-malibu/api/retrieve_booking', {
+    fetch(window.location.origin + '/haus-malibu/api/retrieve_booking.php', {
         method: 'POST',
         body: formData
     })
