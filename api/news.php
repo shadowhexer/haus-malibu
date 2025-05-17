@@ -48,7 +48,7 @@ function addNews($data, $conn) {
     }
 
     $extMap = [
-        'image/jpeg' => 'jpg',
+        'image/jpeg' => 'jpeg',
         'image/png' => 'png',
         'image/gif' => 'gif',
         'image/webp' => 'webp'
@@ -57,7 +57,10 @@ function addNews($data, $conn) {
     
     // Create unique filename
     $target_dir = "images/";
-    $filename = uniqid('', true) . '.' . $extension;
+    if (!file_exists($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+    $filename = uniqid() . '.' . $extension;
     $target_file = $target_dir . $filename;
     
     // Save the file
