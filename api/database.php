@@ -90,7 +90,7 @@ try {
         image VARCHAR(255),
         image_alt TEXT
     )";
-    $conn->exec($occupied_table); 
+    $conn->exec($news_table); 
 } catch(PDOException $e) {
     echo "Error creating 'occupied': " . $e->getMessage() . "<br>";
 }
