@@ -46,9 +46,9 @@ switch ($action) {
         break;
 
     case 'get-news':
-        $rooms = getNews($conn);
-        if ($rooms) {
-            echo json_encode(['status' => 'success', 'rooms' => $rooms]);
+        $news = getNews($conn);
+        if ($news) {
+            echo json_encode(['status' => 'success', 'news' => $news]);
         } else {
             http_response_code(404);
             echo json_encode(['status' => 'error', 'message' => 'No news found']);
