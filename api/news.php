@@ -12,8 +12,18 @@ header('Content-Type: application/json');
 
 function addNews($data, $conn) {
 
+    // Check if image data exists
+    if (!isset($data['image'])) {
+        throw new \Exception('No image data provided');
+    }
+
     // Get the base64 image data from the request
-    $base64_image = is_array($data['image']) ? $data['image'][0] : $data['image'];
+    $base64_image = is_array($data['image']) && !empty($data['image']) ? $data['image'][0] : $data['image'];
+
+    // Validate base64 image data
+    if (empty($base64_image)) {
+        throw new \Exception('Empty image data');
+    }
     
     // Extract the actual base64 string (remove data:image/xxx;base64, prefix)
     if (preg_match('/^data:image\/(\w+);base64,/', $base64_image, $type)) {
