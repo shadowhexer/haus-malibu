@@ -13,7 +13,7 @@ header('Content-Type: application/json');
 function addNews($data, $conn) {
 
     // Get the base64 image data from the request
-    $base64_image = $data['image'];
+    $base64_image = is_array($data['image']) ? $data['image'][0] : $data['image'];
     
     // Extract the actual base64 string (remove data:image/xxx;base64, prefix)
     if (preg_match('/^data:image\/(\w+);base64,/', $base64_image, $type)) {
