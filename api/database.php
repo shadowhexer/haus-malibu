@@ -56,7 +56,7 @@ try {
         bed_size DECIMAL(10, 2) NOT NULL,
         price DECIMAL(10, 2) NOT NULL,
         description TEXT NOT NULL,
-        image VARCHAR(255)
+        image VARCHAR(255) NOT NULL
     )";
 
     $conn->exec($rooms_table);
@@ -87,7 +87,7 @@ try {
         title VARCHAR(100) NOT NULL,
         content TEXT NOT NULL,
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        image VARCHAR(255),
+        image VARCHAR(255) NOT NULL,
         image_alt TEXT
     )";
     $conn->exec($news_table); 

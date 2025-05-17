@@ -77,15 +77,42 @@ function modifyBooking(id, bookStatus) {
 function addRoom() {
     const form = document.getElementById('room-form');
     const formData = new FormData(form);
+    const formObject = Object.fromEntries(formData.entries());
 
+    const imageInput = document.getElementById('room-image');
+    
+    if (imageInput && imageInput.files.length > 0) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = (event) => {
+                // console.log({image: event.target.result});
+                formObject.image = event.target.result;
+                sendRoomData(formObject);
+
+                console.log(formObject);
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        });
+    } else {
+        sendNewsData(formObject);
+    }
+}
+
+function sendRoomData(formObject) {
     fetch(window.location.origin + '/haus-malibu/api/add_rooms.php', {
         method: 'POST',
-        body: formData,
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formObject)
     })
     .then(response => response.json())
     .then(data => {
         if (data.status === "success") {
             alert(data.message);
+            window.location.href = 'admin.html';
         } else {
             alert("Error: " + data.message);
         }
@@ -94,23 +121,13 @@ function addRoom() {
         console.log(err.message);
     })
     .finally(() => {
-        document.getElementById("room-name").value = '';
-        document.getElementById("room-type").value = '';
-        document.getElementById("beds").value = '';
-        document.getElementById("capacity").value = '';
-        document.getElementById("bed-size").value = '';
-        document.getElementById("price").value = '';
-        document.getElementById("desc").value = '';
-    });
-
-    //   if (name && desc && image) {
-    //     const reader = new FileReader();
-    //     reader.onload = () => {
-    //       rooms.push({ id: Date.now(), name, desc, image: reader.result });
-    //       displayRooms();
-    //     };
-    //     reader.readAsDataURL(image);
-    //   }
+        document.getElementById('room-name').style.display = '';
+        document.getElementById('room-type').style.display = '';
+        document.getElementById('beds').style.display = '';
+        document.getElementById('capacity').style.display = '';
+        document.getElementById('bed-size').style.display = '';
+        document.getElementById('price').style.display = '';
+    })
 }
 
 function deleteRoom() {

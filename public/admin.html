@@ -50,7 +50,7 @@
         <input type="number" id="bed-size" name="bed-size" placeholder="Bed Size (sq ft)">
         <input type="number" id="price" name="price" placeholder="Room Price">
         <textarea id="desc" name="desc" placeholder="Room Description"></textarea>
-        <input type="file" id="room-image">
+        <input type="file" id="room-image" name="room-image" accept="image/*">
         <button type="button" class="add-btn" onclick="addRoom()">Add Room</button>
       </form>
 
@@ -82,7 +82,7 @@
       <form id="news-form">
         <input type="text" id="news-title" name="title" placeholder="News Title">
         <textarea id="news-content" name="content" placeholder="News Content"></textarea>
-        <input type="file" name="image" id="image">
+        <input type="file" name="image" id="image" accept="image/*">
         <input type="text" id="alt-text" name="image-alt" placeholder="Image alt text">
         <button type="button" class="add-btn" onclick="addNews()">Add News</button>
       </form>
