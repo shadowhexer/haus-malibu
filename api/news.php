@@ -12,6 +12,7 @@ header('Content-Type: application/json');
 
 function addNews($data, $conn) {
 
+    print_r($data['image']);
     // Check if image data exists
     if (!isset($data['image'])) {
         throw new \Exception('No image data provided');

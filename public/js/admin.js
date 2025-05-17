@@ -152,14 +152,12 @@ function addNews() {
     
     if (imageInput && imageInput.files.length > 0) {
         const reader = new FileReader();
-        reader.onload = (event) => {
+        reader.onloadend = (event) => {
             console.log({ image: event.target.result });
-            img = event.target.result;
+            formObject.image = event.target.result;
         };
         reader.readAsDataURL(imageInput.files[0]);
     }
-
-    formObject.image = img;
 
     fetch('api/news?action=add-news', {
         method: 'POST',
