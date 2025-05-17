@@ -24,21 +24,34 @@ function addNews($data, $conn) {
     if (empty($base64_image)) {
         throw new \Exception('Empty image data');
     }
+
+    $finfo = finfo_open();
+    $mime = finfo_buffer($finfo, $base64_image, FILEINFO_MIME_TYPE);
+    finfo_close($finfo);
+
+    $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    if (!in_array($mime, $allowed)) {
+        throw new \Exception('Disallowed image type');
+    }
     
-    $imageData = str_replace('data:image/png;base64,', '', $base64_image);
-    $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
-    $imageData = str_replace('data:image/jpg;base64,', '', $imageData);
-    $imageData = str_replace('data:image/gif;base64,', '', $imageData);
-    $imageData = str_replace('data:image/webp;base64,', '', $imageData);
-    $imageData = str_replace(' ', '+', $imageData);
+    $imageData = preg_replace('#^data:image/\w+;base64,#i', '', $base64_image);
 
     // Decode base64 data
-    $image_data = base64_decode($imageData);
+    $image_data = base64_decode($base64_image);
     
     if ($image_data === false) {
         throw new \Exception('Base64 decode failed');
     }
 
+    $extMap = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/gif' => 'gif',
+        'image/webp' => 'webp'
+    ];
+    $extension = $extMap[$mime] ?? 'bin';
+    $filename = uniqid('', true) . '.' . $extension;
+      
     // Create unique filename
     $target_dir = "images/";
     $filename = uniqid() . '.' . $type;
