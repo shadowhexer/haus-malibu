@@ -14,7 +14,7 @@ function displayNews() {
     const newsContainer = document.getElementById('news-section');
     newsContainer.innerHTML = ''; // Clear previous news
 
-    if (news.length === 0) {
+    if (!Array.isArray(news) || news.length === 0) {
         newsContainer.innerHTML = '<p>No news available.</p>';
         return;
     }
@@ -25,21 +25,21 @@ function displayNews() {
 
         const image = document.createElement('img');
         image.src = item.image || '/images/home.jpg'; // Default image if none provided
-        image.alt = item.image_alt;
+        image.alt = item.image_alt || 'News article image'; // Default alt text
 
         const newsContent = document.createElement('div');
         newsContent.className = 'news-content';
 
         const title = document.createElement('h2');
-        title.textContent = item.title;
+        title.textContent = item.title || 'Untitled';
 
         const content = document.createElement('p');
-        content.textContent = item.content;
+        content.textContent = item.content || 'No content available';
 
-        newsContent.appendChild(title); // Append 'h2' to news-content div
-        newsContent.appendChild(content); // Append 'p' to news-content div
-        newsItem.appendChild(image); // Append 'img' to news-item
-        newsItem.appendChild(newsContent); // Append news-content div to news-item
-        newsContainer.appendChild(newsItem);  // Append the news-item to the section
+        newsContent.appendChild(title);
+        newsContent.appendChild(content);
+        newsItem.appendChild(image);
+        newsItem.appendChild(newsContent);
+        newsContainer.appendChild(newsItem);
     });
 }
