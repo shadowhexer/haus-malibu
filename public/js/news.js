@@ -5,6 +5,8 @@ function fetchNews() {
         .then(response => response.json())
         .then(data => {
             news = data.rooms;
+            console.log("News: ", news);
+            console.log("Data: ", data);
             displayNews();
         })
         .catch(error => console.error('Error fetching news:', error));
