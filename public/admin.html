@@ -77,24 +77,21 @@
     <!-- Manage News and Updates -->
     <div class="admin-card">
       <h2>NEWS AND UPDATES</h2>
-      <ul id="newsList" class="news-list"></ul>
+      <!-- <ul id="newsList" class="news-list"></ul> -->
       <h3>Add News</h3>
-      <input type="text" id="news-title" placeholder="News Title">
-      <textarea id="news-content" placeholder="News Content"></textarea>
-      <input type="file" id="news-image">
-      <button class="add-btn" onclick="addNews()">Add News</button>
+      <form id="news-form">
+        <input type="text" id="news-title" name="title" placeholder="News Title">
+        <textarea id="news-content" name="content" placeholder="News Content"></textarea>
+        <input type="file" name="image" id="image">
+        <input type="text" id="alt-text" name="image-alt" placeholder="Image alt text">
+        <button type="button" class="add-btn" onclick="addNews()">Add News</button>
+      </form>
+
     </div>
   </div>
 
-  <footer>
-    <img class="footer-logo" src="images/logo.png" alt="Haus Malibu Logo">
-    <div class="social-links">
-      <a href="https://www.facebook.com" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://instagram.com" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-    </div>
-    <p>&copy; 2025 Haus Malibu. All rights reserved.</p>
-  </footer>
+  <!-- Former footer lies here. Now dynamically included from external html file. -->
+  <html-include src="./footer.html" no-shadow mode="same-origin"></html-include>
 
   <script src="js/admin.js" type="text/javascript"></script>
 </body>

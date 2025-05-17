@@ -1,40 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rooms</title>
-    <script type="module" src='./js/html-include-element.js'></script>
-    <script type="module" src="./js/webcomponents-loader.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="module" src='./js/html-include-element.js'></script>
+  <script type="module" src="./js/webcomponents-loader.js"></script>
+  <title>News & Updates - Haus Malibu</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/news.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
+
 <body>
-    <!-- Former header lies here. Now dynamically included from external html file. -->
-    <html-include src="./header.html" shadow mode="same-origin"></html-include>
+  <html-include src="./header.html" no-shadow same-origin></html-include>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Rooms & Suites</h1>
-        </div>
-    </section>
+  <section class="hero">
+    <h1>News & Updates</h1>
+  </section>
 
-    <section class="booking-form">
-        <input type="text" placeholder="Check-In" onfocus="(this.type='date')" />
-        <input type="text" placeholder="Check-Out" onfocus="(this.type='date')" />
-        <select>
-            <option>Number of pax</option>
-            <option>Single Occupancy</option>
-            <option>Single Exucutive</option>
-            <option>2 Pax Tarrif</option>
-            <option>3 Pax Tarrif</option>
-            <option>4 Pax Tarrif</option>
-        </select>
-        <a href="room.html"><button>Select Room</button></a>
-    </section>
+  <section class="news-section" id="news-section"></section>
 
-    <!-- Former footer lies here. Now dynamically included from external html file. -->
-    <html-include src="./footer.html" no-shadow mode="same-origin"></html-include>
+  <!-- Former footer lies here. Now dynamically included from external html file. -->
+  <html-include src="./footer.html" no-shadow mode="same-origin"></html-include>
+
+  <script src="js/news.js" type="text/javascript"></script>
 </body>
+
 </html>

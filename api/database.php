@@ -81,4 +81,18 @@ try {
     echo "Error creating 'occupied': " . $e->getMessage() . "<br>";
 }
 
+try {
+    $news_table = "CREATE TABLE IF NOT EXISTS news (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(100) NOT NULL,
+        content TEXT NOT NULL,
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        image VARCHAR(255),
+        image_alt TEXT
+    )";
+    $conn->exec($occupied_table); 
+} catch(PDOException $e) {
+    echo "Error creating 'occupied': " . $e->getMessage() . "<br>";
+}
+
 ?>

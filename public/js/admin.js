@@ -141,35 +141,54 @@ function deleteRoom() {
 }
 
 function addNews() {
-    const title = document.getElementById("news-title").value;
-    const content = document.getElementById("news-content").value;
-    const image = document.getElementById("news-image").files[0];
+    // const title = document.getElementById("news-title").value;
+    // const content = document.getElementById("news-content").value;
+    // const image = document.getElementById("news-image").files[0];
 
-    if (title && content && image) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            news.push({ id: Date.now(), title, content, image: reader.result });
-            displayNews();
-        };
-        reader.readAsDataURL(image);
-    }
+    // if (title && content && image) {
+    //     const reader = new FileReader();
+    //     reader.onload = () => {
+    //         news.push({ id: Date.now(), title, content, image: reader.result });
+    //         displayNews();
+    //     };
+    //     reader.readAsDataURL(image);
+    // }
+
+    const form = document.getElementById('news-form');
+    const formData = new FormData(form);
+
+    fetch('api/news?action=', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert(data.message);
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.log(err.message);
+    })
 }
 
-function displayNews() {
-    const list = document.getElementById("newsList");
-    list.innerHTML = '';
-    news.forEach(n => {
-        list.innerHTML += `
-        <li class="news-item">
-          <div>
-            <strong>${n.title}</strong><br>
-            ${n.content}<br>
-            <img src="${n.image}" alt="News image">
-          </div>
-          <div class="news-actions">
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-          </div>
-        </li>`;
-    });
-}
+// function displayNews() {
+//     const list = document.getElementById("newsList");
+//     list.innerHTML = '';
+//     news.forEach(n => {
+//         list.innerHTML += `
+//         <li class="news-item">
+//           <div>
+//             <strong>${n.title}</strong><br>
+//             ${n.content}<br>
+//             <img src="${n.image}" alt="News image">
+//           </div>
+//           <div class="news-actions">
+//             <button class="edit-btn">Edit</button>
+//             <button class="delete-btn">Delete</button>
+//           </div>
+//         </li>`;
+//     });
+// }
