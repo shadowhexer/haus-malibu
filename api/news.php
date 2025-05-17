@@ -18,23 +18,22 @@ function addNews($data, $conn) {
     }
 
     // Get the base64 image data from the request
-    $base64_image = is_array($data['image']) && !empty($data['image']) ? $data['image'][0] : $data['image'];
+    $base64_image = $data['image'];
 
     // Validate base64 image data
     if (empty($base64_image)) {
         throw new \Exception('Empty image data');
     }
     
-    // Extract the actual base64 string (remove data:image/xxx;base64, prefix)
-    if (preg_match('/^data:image\/(\w+);base64,/', $base64_image, $type)) {
-        $base64_image = substr($base64_image, strpos($base64_image, ',') + 1);
-        $type = strtolower($type[1]); // jpg, png, gif
-    } else {
-        throw new \Exception('Invalid base64 image data');
-    }
+    $imageData = str_replace('data:image/png;base64,', '', $base64_image);
+    $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+    $imageData = str_replace('data:image/jpg;base64,', '', $imageData);
+    $imageData = str_replace('data:image/gif;base64,', '', $imageData);
+    $imageData = str_replace('data:image/webp;base64,', '', $imageData);
+    $imageData = str_replace(' ', '+', $imageData);
 
     // Decode base64 data
-    $image_data = base64_decode($base64_image);
+    $image_data = base64_decode($imageData);
     
     if ($image_data === false) {
         throw new \Exception('Base64 decode failed');
