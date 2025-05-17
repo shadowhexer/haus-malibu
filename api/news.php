@@ -26,9 +26,12 @@ function addNews($data, $conn) {
         throw new \Exception('Empty image data');
     }
 
-    $finfo = finfo_open();
-    $mime = finfo_buffer($finfo, $base64_image, FILEINFO_MIME_TYPE);
-    finfo_close($finfo);
+    // Extract mime type from base64 string
+    if (preg_match('/^data:(image\/\w+);base64,/', $base64_image, $matches)) {
+        $mime = $matches[1];
+    } else {
+        throw new \Exception('Invalid image format');
+    }
 
     $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
     if (!in_array($mime, $allowed)) {
