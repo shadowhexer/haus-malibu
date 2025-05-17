@@ -11,7 +11,7 @@ header('Content-Type: application/json');
 
 
 function addNews($data, $conn) {
-    $stmt = $conn->prepare("INSERT INTO rooms (`title`, `content`, `image`, `image_alt`) VALUES (:title, :content, :image, :image_alt)");
+    $stmt = $conn->prepare("INSERT INTO news (`title`, `content`, `image`, `image_alt`) VALUES (:title, :content, :image, :image_alt)");
 
     $stmt->bindParam(':title', $data['title'], PDO::PARAM_STR);
     $stmt->bindParam(':content', $data['content'], PDO::PARAM_STR);
@@ -22,7 +22,7 @@ function addNews($data, $conn) {
 }
 
 function getNews($conn) {
-    $stmt = $conn->query("SELECT * FROM rooms");
+    $stmt = $conn->query("SELECT * FROM news");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
