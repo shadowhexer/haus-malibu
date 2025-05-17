@@ -1,7 +1,14 @@
 let news = [];
 
 function fetchNews() {
-    fetch(window.location.origin + 'haus-malibu/api/news?action=get-news')
+    fetch(window.location.origin + '/haus-malibu/api/news?action=get-news', {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

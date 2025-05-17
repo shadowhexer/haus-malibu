@@ -1,7 +1,7 @@
 let rooms = [];
 
 function displayRooms() {
-    fetch(window.location.origin + 'haus-malibu/api/retrieve_rooms')
+    fetch(window.location.origin + '/haus-malibu/api/retrieve_rooms')
         .then(response => response.json())
         .then(data => {
             rooms = data.rooms; // Access the rooms array from the response

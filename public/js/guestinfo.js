@@ -2,7 +2,7 @@ function addBooking() {
     const form = document.getElementById('guest-form');
     const formData = new FormData(form);
 
-    fetch(window.location.origin + 'haus-malibu/api/submit_booking', {
+    fetch(window.location.origin + '/haus-malibu/api/submit_booking', {
         method: 'POST',
         body: formData,
     })

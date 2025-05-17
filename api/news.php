@@ -10,6 +10,7 @@ if (!$conn) {
 header('Content-Type: application/json');
 
 
+
 function addNews($data, $conn) {
 
     // Check if image data exists

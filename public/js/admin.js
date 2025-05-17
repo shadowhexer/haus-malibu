@@ -4,8 +4,10 @@ function checkBooking(event) {
     const form = document.getElementById('book_form');
     const formData = new FormData(form);
 
-    fetch(window.location.origin + 'haus-malibu/api/retrieve_booking', {
+    fetch(window.location.origin + '/haus-malibu/api/retrieve_booking', {
         method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
         body: formData,
     })
         .then(response => response.json())
@@ -57,7 +59,7 @@ function displayBookings() {
 
 function modifyBooking(id, bookStatus) {
 
-    fetch(window.location.origin + 'haus-malibu/api/modify_booking', {
+    fetch(window.location.origin + '/haus-malibu/api/modify_booking', {
         method: 'POST',
         body: JSON.stringify({ book_id: id, status: bookStatus }),
         headers: { 'Content-Type': 'application/json' }
@@ -76,7 +78,7 @@ function addRoom() {
     const form = document.getElementById('room-form');
     const formData = new FormData(form);
 
-    fetch('api/add_rooms', {
+    fetch(window.location.origin + '/haus-malibu/api/add_rooms', {
         method: 'POST',
         body: formData,
     })
@@ -115,7 +117,7 @@ function deleteRoom() {
     const form = document.getElementById('delete-form');
     const formData = new FormData(form);
 
-    fetch(window.location.origin + 'haus-malibu/api/delete_rooms', {
+    fetch(window.location.origin + '/haus-malibu/api/delete_rooms', {
         method: 'POST',
         body: formData,
     })
@@ -163,8 +165,10 @@ function addNews() {
 }
 
 function sendNewsData(formObject) {
-    fetch(window.location.origin + 'haus-malibu/api/news?action=add-news', {
+    fetch(window.location.origin + '/haus-malibu/api/news?action=add-news', {
         method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
