@@ -56,4 +56,4 @@ function displayNews() {
 }
 
 // Add this line to automatically run displayRooms when the page loads
-document.addEventListener('DOMContentLoaded', displayRooms);
+document.addEventListener('DOMContentLoaded', fetchNews());
