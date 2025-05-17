@@ -12,7 +12,6 @@ header('Content-Type: application/json');
 
 function addNews($data, $conn) {
 
-    print_r($data['image']);
     // Check if image data exists
     if (!isset($data['image'])) {
         throw new \Exception('No image data provided');
@@ -20,20 +19,21 @@ function addNews($data, $conn) {
 
     // Get the base64 image data from the request
     $base64_image = $data['image'] ?? null;
+    print_r("Image: " . $base64_image);
 
     // Validate base64 image data
     if (empty($base64_image)) {
         throw new \Exception('Empty image data');
     }
 
-    // $finfo = finfo_open();
-    // $mime = finfo_buffer($finfo, $base64_image, FILEINFO_MIME_TYPE);
-    // finfo_close($finfo);
+    $finfo = finfo_open();
+    $mime = finfo_buffer($finfo, $base64_image, FILEINFO_MIME_TYPE);
+    finfo_close($finfo);
 
-    // $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
-    // if (!in_array($mime, $allowed)) {
-    //     throw new \Exception('Disallowed image type');
-    // }
+    $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    if (!in_array($mime, $allowed)) {
+        throw new \Exception('Disallowed image type');
+    }
     
     $imageData = preg_replace('#^data:image/\w+;base64,#i', '', $base64_image);
 
