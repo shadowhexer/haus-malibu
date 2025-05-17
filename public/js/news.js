@@ -4,7 +4,7 @@ function fetchNews() {
     fetch('/api/news?action=get-news')
         .then(response => response.json())
         .then(data => {
-            news = data;
+            news = data.rooms;
             displayNews();
         })
         .catch(error => console.error('Error fetching news:', error));
@@ -25,7 +25,7 @@ function displayNews() {
 
         const image = document.createElement('img');
         image.src = item.image || '/images/home.jpg'; // Default image if none provided
-        image.alt = item.title;
+        image.alt = item.image_alt;
 
         const newsContent = document.createElement('div');
         newsContent.className = 'news-content';

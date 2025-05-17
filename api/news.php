@@ -15,7 +15,7 @@ function addNews($data, $conn) {
 
     $stmt->bindParam(':title', $data['title'], PDO::PARAM_STR);
     $stmt->bindParam(':content', $data['content'], PDO::PARAM_STR);
-    $stmt->bindParam(':image', $data['image'], PDO::PARAM_STR);
+    $stmt->bindParam(':image', $data['image']['name'], PDO::PARAM_STR);
     $stmt->bindParam(':image_alt', $data['image-alt'], PDO::PARAM_STR);
 
     return $stmt->execute();
@@ -48,7 +48,7 @@ switch ($action) {
     case 'get-news':
         $rooms = getNews($conn);
         if ($rooms) {
-            echo json_encode(['status' => 'success', 'data' => $rooms]);
+            echo json_encode(['status' => 'success', 'rooms' => $rooms]);
         } else {
             http_response_code(404);
             echo json_encode(['status' => 'error', 'message' => 'No news found']);
