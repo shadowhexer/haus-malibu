@@ -19,8 +19,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         if ($stmt->execute()) {
+
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
+            switch($result['status']) {
+                case 0:
+                    $result['status'] = "Pending";
+                    break;
+                case 1:
+                    $result['status'] = "Accepted";
+                    break;
+                case 2:
+                    $result['status'] = "Declined";
+                    break;
+            }
+
             echo json_encode(["status" => "success", "result" => $result]);
         } else {
             $error = $stmt->errorInfo();

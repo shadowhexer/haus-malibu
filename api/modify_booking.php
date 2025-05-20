@@ -19,6 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $data) {
     $id = $data['book_id'];
     $status = $data['status'];
 
+    switch($status) {
+        case "Pending":
+            $status = 0;
+            break;
+        case "Accepted":
+            $status = 1;
+            break;
+        case "Declined":
+            $status = 2;
+            break;
+    }
+
     $stmt = $conn->prepare("UPDATE occupied SET status = :status WHERE book_id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->bindParam(':status', $status);

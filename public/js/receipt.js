@@ -62,9 +62,14 @@ function generatePDF() {
         b.book_id, b.first_name, b.last_name, b.check_in, b.check_out, b.date,
     ]);
 
-    doc.text("Haus Malibu Booking Report", 14, 15);
+    doc.setFont("Times New Roman", 'bold');
+    doc.setFontSize(20);
+    doc.text("Haus Malibu Booking Receipt", 14, 15);
+    doc.setFont("Arial", 'normal');
+    doc.setFontSize(12);
+    doc.text("Please present this receipt to the receiptionist. Thank you!!", 14, 23);
     doc.autoTable({
-        startY: 20,
+        startY: 30,
         head: [["Book ID", "First Name", "Last Name", "Check-in", "Check-out", "Time"]],
         body: rows,
         styles: { cellPadding: 3 },
